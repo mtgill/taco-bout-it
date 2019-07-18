@@ -15,6 +15,7 @@ import fbConnection from '../helpers/data/connection';
 import Auth from '../components/Auth/Auth';
 import Home from '../components/Home/Home';
 import MyNavBar from '../components/MyNavBar/MyNavBar';
+import SingleTaco from '../components/SingleTaco/SingleTaco';
 
 // Import styles
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -70,6 +71,7 @@ class App extends React.Component {
                 <Switch>
                   <PublicRoute path="/auth" component={Auth} authed={authed} />
                   <PrivateRoute path="/home" component={Home} authed={authed} />
+                  <PrivateRoute path="/singleTaco" component={SingleTaco} authed={authed} />
                   <Redirect from="*" to="/auth" />
                 </Switch>
               </div>
