@@ -1,0 +1,100 @@
+{
+  "taco1": {
+    "locationId": "location1",
+    "ingredients": "slow tomatillo beer braised chicken, cotija cheese, onions, jalapeño, cilantro",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Drunken Chicken"
+  },
+  "taco2": {
+    "locationId": "location1",
+    "ingredients": "seasoned pork, pineapple salsa, cilantro ",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Pork al Pastor"
+  },
+  "taco3": {
+    "locationId": "location1",
+    "ingredients": "pickled onions, cilantro",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Pork Belly"
+  },
+  "taco4": {
+    "locationId": "location2",
+    "ingredients": "roasted chicken, salsa verde, shredded lettuce, pico de gallo, crumbled chorizo, creamy black bean mash, chipotle cream sauce",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Taco Royale"
+  },
+  "taco5": {
+    "locationId": "location2",
+    "ingredients": "Carnitas, salsa verde, crispy lettuce, pico de gallo, monterey jack cheese, guacamole",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Carnitas"
+  },
+  "taco6": {
+    "locationId": "location3",
+    "ingredients": "Marinated steak strips, guacamole, pico de gallo",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Carne Asada"
+  },
+  "taco7": {
+    "locationId": "location3",
+    "ingredients": "Pulled pork, guacamole, pico de gallo",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Carnitas"
+  },
+  "taco8": {
+    "locationId": "location4",
+    "ingredients": "12 hour smoked pork, coleslaw, local BBQ sauce",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "The Pitmaster"
+  },
+  "taco9": {
+    "locationId": "location4",
+    "ingredients": "Skirt steak with gripped peppers, onions, chimichurri sauce",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "El Carnicero"
+  },
+  "taco10": {
+    "locationId": "location5",
+    "ingredients": "Marinated steak, flour tortilla",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Steak Fajita"
+  },
+  "taco11": {
+    "locationId": "location5",
+    "ingredients": "Hickory smoked pulled pork, flour tortilla",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Pulled Pork Fajita"
+  },
+  "taco12": {
+    "locationId": "location6",
+    "ingredients": "Chopped smoked pork, spicy jalapeño coleslaw, tequila BBQ sauce",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Memphis"
+  },
+  "taco13": {
+    "locationId": "location6",
+    "ingredients": "Shredded beef brisket, pico de gallo",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Brisket"
+  },
+  "taco14": {
+    "locationId": "location7",
+    "ingredients": "Slow-roasted Carnitas, tangy mojo sauce",
+    "imageUrl": "",
+    "avgRating": 0,
+    "name": "Mojo pork carnitas"
+  },
+}
