@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TacoMap from '../Map/TacoMap';
+import TacoMap from '../TacoMap/TacoMap';
 
 import './Home.scss';
 
