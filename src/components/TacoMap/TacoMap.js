@@ -8,6 +8,7 @@ import {
 } from 'react-leaflet';
 
 import locationData from '../../helpers/data/locationData';
+import tacoData from '../../helpers/data/tacoData';
 
 
 import './TacoMap.scss';
@@ -19,6 +20,14 @@ class TacoMap extends React.Component {
     lng: -86.7816,
     zoom: 12,
     locations: [],
+    tacos: [],
+    tacoPopups: [],
+  }
+
+  getTacos = () => {
+    tacoData.getTacos()
+      .then(tacos => console.error(tacos))
+      .catch(err => console.error('could not get locations', err));
   }
 
   getLocations = () => {
@@ -28,8 +37,20 @@ class TacoMap extends React.Component {
   }
 
   componentDidMount() {
+    const { tacos, locations } = this.state;
     this.getLocations();
+    this.getTacos();
+    console.error(this.matchTacos(locations, tacos));
   }
+
+  matchTacos = (locations, tacos) => locations.map((location) => {
+    const loc = location;
+    const taco = tacos.find(t => t.id === loc.id);
+    if (taco) {
+      loc.id = taco.id;
+    }
+    return loc;
+  });
 
   render() {
     const { zoom } = this.state;
