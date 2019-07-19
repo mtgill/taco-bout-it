@@ -37,23 +37,32 @@ class TacoMap extends React.Component {
   }
 
   componentDidMount() {
-    const { tacos, locations } = this.state;
     this.getLocations();
     this.getTacos();
-    console.error(this.matchTacos(locations, tacos));
   }
 
   matchTacos = (locations, tacos) => locations.map((location) => {
     const loc = location;
-    const taco = tacos.find(t => t.id === loc.id);
+    const taco = tacos.find(t => t.locationId === loc.id);
     if (taco) {
       loc.id = taco.id;
     }
+    console.error(loc);
     return loc;
   });
 
+  // const friendRsvps = (friends, rsvps) => friends.map((friend) => {
+  //   const f = friend;
+  //   const rsvp = rsvps.find(r => r.friendId === f.id);
+  //   if (rsvp) {
+  //     f.rsvpId = rsvp.id;
+  //     f.statusId = rsvp.statusId;
+  //   }
+  //   return f;
+  // });
+
   render() {
-    const { zoom } = this.state;
+    const { zoom, locations, tacos } = this.state;
     const center = [this.state.lat, this.state.lng];
     const makeMarkers = this.state.locations.map(location => (
       <Marker key={location.id} position={[location.lat, location.lng]}>
@@ -62,6 +71,7 @@ class TacoMap extends React.Component {
         </Popup>
       </Marker>
     ));
+    this.matchTacos(locations, tacos);
     return (
       <div className="TacoMap">
       <Map center={center} zoom={zoom}>
