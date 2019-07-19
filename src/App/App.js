@@ -21,6 +21,7 @@ import SingleTaco from '../components/SingleTaco/SingleTaco';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
+
 fbConnection();
 
 const PublicRoute = ({ component: Component, authed, ...rest }) => {

@@ -1,11 +1,15 @@
 import React from 'react';
 
+import TacoMap from '../Map/TacoMap';
+
 import './Home.scss';
 
 class Home extends React.Component {
   render() {
     return (
-      <h1>Home</h1>
+      <div className="Home">
+        <TacoMap />
+      </div>
     );
   }
 }
