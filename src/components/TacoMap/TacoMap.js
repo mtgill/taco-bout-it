@@ -19,8 +19,6 @@ class TacoMap extends React.Component {
     lng: -86.7816,
     zoom: 12,
     locations: [],
-    markerLat: 0,
-    markerLng: 0,
   }
 
   getLocations = () => {
