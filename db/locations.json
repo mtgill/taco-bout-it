@@ -1,0 +1,44 @@
+{
+  "location1": {
+    "name": "Mas Tacos",
+    "address": "732 Mcferrin Ave, Nashville, TN 37206",
+    "lat": 36.1848,
+    "lng": -86.7547
+  },
+  "location2": {
+    "name": "Taco Mamacita",
+    "address": "1200 Villa Pl, Nashville, TN 37212",
+    "lat": 36.1430633,
+    "lng": -86.7917397
+  },
+  "location3": {
+    "name": "Oscar's Taco Shop",
+    "address": "530 Church St, Nashville, TN 37219",
+    "lat": 36.162812,
+    "lng": -86.781256
+  },
+  "location4": {
+    "name": "The Local Taco",
+    "address": "1100 Fatherland St #104, Nashville, TN 37206",
+    "lat": 36.1739627,
+    "lng": -86.7502087
+  },
+  "location5": {
+    "name": "San Antonio Taco Co",
+    "address": "416 21st Ave S, Nashville, TN 37203",
+    "lat": 36.1461932,
+    "lng": -86.799179
+  },
+  "location6": {
+    "name": "Taqueria del Sol",
+    "address": "2317 12th Ave S, Nashville, TN 37204",
+    "lat": 36.1432275,
+    "lng": -86.7516932
+  },
+  "location7": {
+    "name": "bartaco",
+    "address": "2526 12th Ave S, Nashville, TN 37204",
+    "lat": 36.136018,
+    "lng": -86.7865976
+  }
+}

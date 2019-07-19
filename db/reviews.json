@@ -1,0 +1,30 @@
+{
+  "review1": {
+    "uid": "",
+    "comment": "Best taco in town",
+    "tacoId": "taco1",
+    "rating": 4,
+    "date": "4/23/2018"
+  },
+  "review2": {
+    "uid": "",
+    "comment": "Amazing!",
+    "tacoId": "taco5",
+    "rating": 4,
+    "date": "7/3/2019"
+  },
+  "review3": {
+    "uid": "",
+    "comment": "So tasty",
+    "tacoId": "taco12",
+    "rating": 5,
+    "date": "8/13/2017"
+  },
+  "review4": {
+    "uid": "",
+    "comment": "The flavor is incredible",
+    "tacoId": "taco6",
+    "rating": 5,
+    "date": "1/4/2019"
+  }
+}
