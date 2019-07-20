@@ -10,6 +10,8 @@ import {
 import locationData from '../../helpers/data/locationData';
 import tacoData from '../../helpers/data/tacoData';
 
+import TacoPopup from '../TacoPopup/TacoPopup';
+
 
 import './TacoMap.scss';
 
@@ -21,12 +23,11 @@ class TacoMap extends React.Component {
     zoom: 12,
     locations: [],
     tacos: [],
-    tacoPopups: [],
   }
 
   getTacos = () => {
     tacoData.getTacos()
-      .then(tacos => console.error(tacos))
+      .then(tacos => this.setState({ tacos }))
       .catch(err => console.error('could not get locations', err));
   }
 
@@ -41,26 +42,6 @@ class TacoMap extends React.Component {
     this.getTacos();
   }
 
-  matchTacos = (locations, tacos) => locations.map((location) => {
-    const loc = location;
-    const taco = tacos.find(t => t.locationId === loc.id);
-    if (taco) {
-      loc.id = taco.id;
-    }
-    console.error(loc);
-    return loc;
-  });
-
-  // const friendRsvps = (friends, rsvps) => friends.map((friend) => {
-  //   const f = friend;
-  //   const rsvp = rsvps.find(r => r.friendId === f.id);
-  //   if (rsvp) {
-  //     f.rsvpId = rsvp.id;
-  //     f.statusId = rsvp.statusId;
-  //   }
-  //   return f;
-  // });
-
   render() {
     const { zoom, locations, tacos } = this.state;
     const center = [this.state.lat, this.state.lng];
@@ -71,7 +52,6 @@ class TacoMap extends React.Component {
         </Popup>
       </Marker>
     ));
-    this.matchTacos(locations, tacos);
     return (
       <div className="TacoMap">
       <Map center={center} zoom={zoom}>
@@ -81,6 +61,7 @@ class TacoMap extends React.Component {
         />
         {makeMarkers}
       </Map>
+      <TacoPopup tacos={tacos} locations={locations} />
       </div>
     );
   }
