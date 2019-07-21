@@ -23,6 +23,7 @@ class TacoMap extends React.Component {
     zoom: 12,
     locations: [],
     tacos: [],
+    locationTacos: [],
   }
 
   getTacos = () => {
@@ -42,12 +43,30 @@ class TacoMap extends React.Component {
     this.getTacos();
   }
 
+  selectLocation = (e) => {
+    const locationId = e.target.options.id;
+    const matchTacos = this.state.tacos.filter(x => x.locationId === locationId);
+    this.setState({ locationTacos: matchTacos });
+    console.error(this.state.locationTacos);
+  }
+
+  // chooseLocation = (e) => {
+  //   const { locations } = this.state;
+  //   this.selectLocation(locations.id);
+  //   console.error(locations.id);
+  // }
+
   render() {
-    const { zoom, locations, tacos } = this.state;
+    const { zoom, locationTacos } = this.state;
     const center = [this.state.lat, this.state.lng];
     const makeMarkers = this.state.locations.map(location => (
-      <Marker key={location.id} position={[location.lat, location.lng]}>
+      <Marker
+      key={location.name}
+      id={location.id}
+      position={[location.lat, location.lng]}
+      onClick={this.selectLocation}>
         <Popup>
+        <TacoPopup locationTacos={locationTacos} />
           {location.name}
         </Popup>
       </Marker>
@@ -61,7 +80,6 @@ class TacoMap extends React.Component {
         />
         {makeMarkers}
       </Map>
-      <TacoPopup tacos={tacos} locations={locations} />
       </div>
     );
   }
