@@ -18,20 +18,17 @@ import tacoData from '../../helpers/data/tacoData';
 
 import './Home.scss';
 
-// const defaultLocation = {
-//   newLocName: '',
-//   newLocAddress: '',
-//   newLocLat: 0,
-//   newLocLng: 0,
-// };
+const defaultLocation = {
+  name: '',
+  address: '',
+  lat: 0,
+  lng: 0,
+};
 
 class Home extends React.Component {
   state = {
     locationModal: false,
-    newLocName: '',
-    newLocAddress: '',
-    newLocLat: 0,
-    newLocLng: 0,
+    newLoc: defaultLocation,
     locations: [],
     tacos: [],
   }
@@ -62,48 +59,27 @@ class Home extends React.Component {
     this.getTacos();
   }
 
-  newLocationName = (e) => {
-    e.preventDefault();
-    this.setState({ newLocName: e.target.value });
+  newLocationStateUpdates = (name, e) => {
+    const tempLoc = { ...this.state.newLoc };
+    tempLoc[name] = e.target.value;
+    this.setState({ newLoc: tempLoc });
   }
 
-  newLocationAddress = (e) => {
-    e.preventDefault();
-    this.setState({ newLocAddress: e.target.value });
-  }
+  newLocationName = e => this.newLocationStateUpdates('name', e);
 
-  newLocationLat = (e) => {
-    e.preventDefault();
-    this.setState({ newLocLat: e.target.value });
-  }
+  newLocationAddress = e => this.newLocationStateUpdates('address', e);
 
-  newLocationLng = (e) => {
-    e.preventDefault();
-    this.setState({ newLocLng: e.target.value });
-  }
+  newLocationLat = e => this.newLocationStateUpdates('lat', e);
 
-  refreshLocations = () => {
+  newLocationLng = e => this.newLocationStateUpdates('lng', e);
 
-  }
 
   saveNewLoc = () => {
-    const {
-      newLocAddress,
-      newLocLng,
-      newLocLat,
-      newLocName,
-    } = this.state;
-    const newLoc = {
-      name: newLocName,
-      address: newLocAddress,
-      lat: newLocLat,
-      lng: newLocLng,
-    };
+    const { newLoc } = this.state;
     locationData.addLocation(newLoc)
       .then(() => {
         this.setState({ locationModal: false });
-        locationData.getLocations()
-          .then(locations => this.setState({ locations }));
+        this.getLocations();
       });
   }
 
@@ -117,25 +93,25 @@ class Home extends React.Component {
           <ModalHeader toggle={this.toggle}>Add New Location</ModalHeader>
           <ModalBody>
             <FormGroup>
-            <Label for="locationName">Location Name</Label>{' '}
+            <Label for="name">Location Name</Label>{' '}
                 <Input
                 onChange={this.newLocationName}
-                name="locationName"
+                name="name"
                 />
-                <Label for="locationAddress">Address</Label>{' '}
+                <Label for="address">Address</Label>{' '}
                 <Input
                 onChange={this.newLocationAddress}
-                name="locationAddress"
+                name="address"
                 />
-                <Label for="locationLat">Latitude</Label>{' '}
+                <Label for="lat">Latitude</Label>{' '}
                 <Input
                 onChange={this.newLocationLat}
-                name="locationLat"
+                name="lat"
                 />
-                <Label for="locationLng">Longitude</Label>{' '}
+                <Label for="lng">Longitude</Label>{' '}
                 <Input
                 onChange={this.newLocationLng}
-                name="locationLng"
+                name="lng"
                 />
             </FormGroup>
           </ModalBody>
