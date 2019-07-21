@@ -8,6 +8,9 @@ import {
 } from 'react-leaflet';
 
 import locationData from '../../helpers/data/locationData';
+import tacoData from '../../helpers/data/tacoData';
+
+import TacoPopup from '../TacoPopup/TacoPopup';
 
 
 import './TacoMap.scss';
@@ -19,6 +22,14 @@ class TacoMap extends React.Component {
     lng: -86.7816,
     zoom: 12,
     locations: [],
+    tacos: [],
+    locationTacos: [],
+  }
+
+  getTacos = () => {
+    tacoData.getTacos()
+      .then(tacos => this.setState({ tacos }))
+      .catch(err => console.error('could not get locations', err));
   }
 
   getLocations = () => {
@@ -29,16 +40,32 @@ class TacoMap extends React.Component {
 
   componentDidMount() {
     this.getLocations();
+    this.getTacos();
   }
 
+  selectLocation = (e) => {
+    const locationId = e.target.options.id;
+    const matchTacos = this.state.tacos.filter(x => x.locationId === locationId);
+    this.setState({ locationTacos: matchTacos });
+    // console.error(this.state.locationTacos);
+  }
+
+  // chooseLocation = (e) => {
+  //   const { locations } = this.state;
+  //   this.selectLocation(locations.id);
+  //   console.error(locations.id);
+  // }
+
   render() {
-    const { zoom } = this.state;
+    const { zoom, locationTacos } = this.state;
     const center = [this.state.lat, this.state.lng];
     const makeMarkers = this.state.locations.map(location => (
-      <Marker key={location.id} position={[location.lat, location.lng]}>
-        <Popup>
-          {location.name}
-        </Popup>
+      <Marker
+      key={location.name}
+      id={location.id}
+      position={[location.lat, location.lng]}
+      onClick={this.selectLocation}>
+        <TacoPopup key={location.id} locationTacos={locationTacos} locationName={location.name} />
       </Marker>
     ));
     return (
