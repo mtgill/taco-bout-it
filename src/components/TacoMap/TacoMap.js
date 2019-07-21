@@ -4,7 +4,6 @@ import {
   Map,
   TileLayer,
   Marker,
-  Popup,
 } from 'react-leaflet';
 
 import locationData from '../../helpers/data/locationData';
