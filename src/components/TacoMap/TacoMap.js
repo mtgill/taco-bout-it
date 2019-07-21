@@ -47,7 +47,7 @@ class TacoMap extends React.Component {
     const locationId = e.target.options.id;
     const matchTacos = this.state.tacos.filter(x => x.locationId === locationId);
     this.setState({ locationTacos: matchTacos });
-    console.error(this.state.locationTacos);
+    // console.error(this.state.locationTacos);
   }
 
   // chooseLocation = (e) => {
@@ -65,10 +65,7 @@ class TacoMap extends React.Component {
       id={location.id}
       position={[location.lat, location.lng]}
       onClick={this.selectLocation}>
-        <Popup>
-        <TacoPopup locationTacos={locationTacos} />
-          {location.name}
-        </Popup>
+        <TacoPopup key={location.id} locationTacos={locationTacos} locationName={location.name} />
       </Marker>
     ));
     return (
