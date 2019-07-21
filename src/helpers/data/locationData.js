@@ -16,4 +16,6 @@ const getLocations = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { getLocations };
+const addLocation = newLoc => axios.post(`${fbUrl}/locations.json`, newLoc);
+
+export default { getLocations, addLocation };

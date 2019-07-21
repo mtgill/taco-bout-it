@@ -46,14 +46,7 @@ class TacoMap extends React.Component {
     const locationId = e.target.options.id;
     const matchTacos = this.state.tacos.filter(x => x.locationId === locationId);
     this.setState({ locationTacos: matchTacos });
-    // console.error(this.state.locationTacos);
   }
-
-  // chooseLocation = (e) => {
-  //   const { locations } = this.state;
-  //   this.selectLocation(locations.id);
-  //   console.error(locations.id);
-  // }
 
   render() {
     const { zoom, locationTacos } = this.state;
