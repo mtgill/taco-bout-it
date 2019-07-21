@@ -6,9 +6,6 @@ import {
   Marker,
 } from 'react-leaflet';
 
-import locationData from '../../helpers/data/locationData';
-import tacoData from '../../helpers/data/tacoData';
-
 import TacoPopup from '../TacoPopup/TacoPopup';
 
 
@@ -20,38 +17,19 @@ class TacoMap extends React.Component {
     lat: 36.1627,
     lng: -86.7816,
     zoom: 12,
-    locations: [],
-    tacos: [],
     locationTacos: [],
-  }
-
-  getTacos = () => {
-    tacoData.getTacos()
-      .then(tacos => this.setState({ tacos }))
-      .catch(err => console.error('could not get locations', err));
-  }
-
-  getLocations = () => {
-    locationData.getLocations()
-      .then(locations => this.setState({ locations }))
-      .catch(err => console.error('could not get locations', err));
-  }
-
-  componentDidMount() {
-    this.getLocations();
-    this.getTacos();
   }
 
   selectLocation = (e) => {
     const locationId = e.target.options.id;
-    const matchTacos = this.state.tacos.filter(x => x.locationId === locationId);
+    const matchTacos = this.props.tacos.filter(x => x.locationId === locationId);
     this.setState({ locationTacos: matchTacos });
   }
 
   render() {
     const { zoom, locationTacos } = this.state;
     const center = [this.state.lat, this.state.lng];
-    const makeMarkers = this.state.locations.map(location => (
+    const makeMarkers = this.props.locations.map(location => (
       <Marker
       key={location.name}
       id={location.id}

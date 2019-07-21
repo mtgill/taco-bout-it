@@ -14,6 +14,7 @@ import {
 import TacoMap from '../TacoMap/TacoMap';
 
 import locationData from '../../helpers/data/locationData';
+import tacoData from '../../helpers/data/tacoData';
 
 import './Home.scss';
 
@@ -31,6 +32,8 @@ class Home extends React.Component {
     newLocAddress: '',
     newLocLat: 0,
     newLocLng: 0,
+    locations: [],
+    tacos: [],
   }
 
   locationModalToggle = this.locationModalToggle.bind(this);
@@ -40,6 +43,23 @@ class Home extends React.Component {
     this.setState(prevState => ({
       locationModal: !prevState.locationModal,
     }));
+  }
+
+  getTacos = () => {
+    tacoData.getTacos()
+      .then(tacos => this.setState({ tacos }))
+      .catch(err => console.error('could not get locations', err));
+  }
+
+  getLocations = () => {
+    locationData.getLocations()
+      .then(locations => this.setState({ locations }))
+      .catch(err => console.error('could not get locations', err));
+  }
+
+  componentDidMount() {
+    this.getLocations();
+    this.getTacos();
   }
 
   newLocationName = (e) => {
@@ -63,7 +83,7 @@ class Home extends React.Component {
   }
 
   refreshLocations = () => {
-    
+
   }
 
   saveNewLoc = () => {
@@ -82,14 +102,16 @@ class Home extends React.Component {
     locationData.addLocation(newLoc)
       .then(() => {
         this.setState({ locationModal: false });
-        locationData.getLocations();
+        locationData.getLocations()
+          .then(locations => this.setState({ locations }));
       });
   }
 
   render() {
+    const { tacos, locations } = this.state;
     return (
       <div className="Home">
-        <TacoMap />
+        <TacoMap tacos={tacos} locations={locations} />
         <button className="btn btn-warning" onClick={this.locationModalToggle}>Add Location</button>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Location</ModalHeader>
