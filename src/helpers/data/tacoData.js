@@ -18,4 +18,6 @@ const getTacos = () => new Promise((resolve, reject) => {
 
 const getSingleTaco = tacoId => axios.get(`${fbUrl}/tacos/${tacoId}.json`);
 
-export default { getTacos, getSingleTaco };
+const addTaco = newTaco => axios.post(`${fbUrl}/tacos.json`, newTaco);
+
+export default { getTacos, getSingleTaco, addTaco };

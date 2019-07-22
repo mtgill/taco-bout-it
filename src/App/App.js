@@ -16,6 +16,7 @@ import Auth from '../components/Auth/Auth';
 import Home from '../components/Home/Home';
 import MyNavBar from '../components/MyNavBar/MyNavBar';
 import SingleTaco from '../components/SingleTaco/SingleTaco';
+import NewTaco from '../components/NewTaco/NewTaco';
 
 // Import styles
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -73,6 +74,7 @@ class App extends React.Component {
                   <PublicRoute path="/auth" component={Auth} authed={authed} />
                   <PrivateRoute path="/home" component={Home} authed={authed} />
                   <PrivateRoute path="/singleTaco/:id/:loc" component={SingleTaco} authed={authed} />
+                  <PrivateRoute path="/newTaco/:id" component={NewTaco} authed={authed} />
                   <Redirect from="*" to="/auth" />
                 </Switch>
               </div>
