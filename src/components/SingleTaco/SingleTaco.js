@@ -1,6 +1,7 @@
 import React from 'react';
 
 import tacoData from '../../helpers/data/tacoData';
+import Review from '../Review/Review';
 
 import './SingleTaco.scss';
 
@@ -22,7 +23,6 @@ class SingleTaco extends React.Component {
   render() {
     const { taco, location } = this.state;
     return (
-      <div className="d-flex">
         <div className="SingleTaco col-10">
           <div className="card">
             <div className="card-body">
@@ -33,8 +33,10 @@ class SingleTaco extends React.Component {
               <button className="btn btn-success">Add Review</button>
             </div>
           </div>
+          <div>
+            <Review />
         </div>
-      </div>
+        </div>
     );
   }
 }
