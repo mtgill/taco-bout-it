@@ -1,20 +1,16 @@
 import React from 'react';
 
-import reviewData from '../../helpers/data/reviewData';
-
 import './Review.scss';
 
 class Review extends React.Component {
   render() {
-    const { review } = this.props;
-    console.error('review from reviews', review);
-    // const { tacoId } = this.props;
-    // const review = reviewData.getReviews(tacoId);
-    // this.getReviews(tacoId);
+    const { date, comment, rating } = this.props;
     return (
       <div className="Review">
-        <h1>Reviews</h1>
-        <p>{review.comment}</p>
+        <h1>Review</h1>
+        <h5>Date: {date}</h5>
+        <h5>Comment: {comment}</h5>
+        <h5>Rating: {rating}</h5>
       </div>
     );
   }

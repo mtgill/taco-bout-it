@@ -12,7 +12,7 @@ class SingleTaco extends React.Component {
     taco: {},
     location: '',
     tacoId: '',
-    review: [],
+    reviews: [],
   }
 
   componentDidMount() {
@@ -24,12 +24,20 @@ class SingleTaco extends React.Component {
       .then(tacoPromise => this.setState({ taco: tacoPromise.data }))
       .catch(err => console.error('unable to get single taco', err));
     reviewData.getReviews(tacoId)
-      .then(review => this.setState({ review: review[0] }));
+      .then(resp => this.setState({ reviews: resp }))
+      .catch(err => console.error('unable to get reviews', err));
   }
 
   render() {
-    const { taco, location, review } = this.state;
-    console.error('review from single', review);
+    const { taco, location, reviews } = this.state;
+    const makeReviews = reviews.map(review => (
+      <Review
+      key={review.id}
+      comment={review.comment}
+      date={review.date}
+      rating={review.rating}
+      />
+    ));
     return (
         <div className="SingleTaco col-10">
           <div className="card">
@@ -42,7 +50,7 @@ class SingleTaco extends React.Component {
             </div>
           </div>
           <div>
-            <Review key={'review'} id={review.id} review={review} />
+            {makeReviews}
         </div>
         </div>
     );
