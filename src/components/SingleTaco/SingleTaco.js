@@ -15,6 +15,13 @@ class SingleTaco extends React.Component {
     reviews: [],
   }
 
+  getReviews = () => {
+    const { tacoId } = this.state;
+    reviewData.getReviews(tacoId)
+      .then(resp => this.setState({ reviews: resp }))
+      .catch(err => console.error('unable to get reviews', err));
+  }
+
   componentDidMount() {
     const tacoId = this.props.match.params.id;
     const location = this.props.match.params.loc;
@@ -28,14 +35,23 @@ class SingleTaco extends React.Component {
       .catch(err => console.error('unable to get reviews', err));
   }
 
+  deleteReview = (reviewId) => {
+    const { tacoId } = this.state;
+    reviewData.deleteReview(reviewId)
+      .then(() => this.getReviews(tacoId))
+      .catch(err => console.error('unable to delete', err));
+  }
+
   render() {
     const { taco, location, reviews } = this.state;
     const makeReviews = reviews.map(review => (
       <Review
-      key={review.id}
+      key={review.rating}
+      id={review.id}
       comment={review.comment}
       date={review.date}
       rating={review.rating}
+      deleteReview={this.deleteReview}
       />
     ));
     return (
