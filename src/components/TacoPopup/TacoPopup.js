@@ -22,7 +22,7 @@ class TacoPopup extends React.Component {
   render() {
     const { locationName, locationTacos } = this.props;
     const tacoNames = locationTacos.map(taco => (
-    <Link key={taco.name} id={taco.id} taco={taco} to={`/singleTaco/${taco.id}`}><li>{taco.name}</li></Link>));
+    <Link key={taco.name} id={taco.id} to={`/singleTaco/${taco.id}`}><li>{taco.name}</li></Link>));
     return (
       <div className="TacoPopup">
         <Popup key={locationName}>

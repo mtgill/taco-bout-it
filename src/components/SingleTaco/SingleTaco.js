@@ -19,8 +19,14 @@ class SingleTaco extends React.Component {
   render() {
     const { taco } = this.state;
     return (
-      <div className="SingleTaco">
-        <h1>{taco.name}</h1>
+      <div className="SingleTaco col-8">
+        <div className="card">
+          <div className="card-body">
+            <h3 className="card-title">{taco.name}</h3>
+            <h5 className="card-text">Ingredients: {taco.ingredients}</h5>
+            <button className="btn btn-success">Add Review</button>
+          </div>
+        </div>
       </div>
     );
   }
