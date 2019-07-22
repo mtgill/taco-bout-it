@@ -16,4 +16,6 @@ const getTacos = () => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
-export default { getTacos };
+const getSingleTaco = tacoId => axios.get(`${fbUrl}/tacos/${tacoId}.json`);
+
+export default { getTacos, getSingleTaco };

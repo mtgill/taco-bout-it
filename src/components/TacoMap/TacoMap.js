@@ -10,6 +10,7 @@ import TacoPopup from '../TacoPopup/TacoPopup';
 
 
 import './TacoMap.scss';
+import tacoData from '../../helpers/data/tacoData';
 
 
 class TacoMap extends React.Component {
@@ -26,6 +27,10 @@ class TacoMap extends React.Component {
     this.setState({ locationTacos: matchTacos });
   }
 
+  getSingleTaco = (tacoId) => {
+    tacoData.getSingleTaco(tacoId);
+  }
+
   render() {
     const { zoom, locationTacos } = this.state;
     const center = [this.state.lat, this.state.lng];
@@ -35,7 +40,12 @@ class TacoMap extends React.Component {
       id={location.id}
       position={[location.lat, location.lng]}
       onClick={this.selectLocation}>
-        <TacoPopup key={location.id} locationTacos={locationTacos} locationName={location.name} />
+        <TacoPopup
+        key={location.id}
+        locationTacos={locationTacos}
+        locationName={location.name}
+        getSingleTaco={this.getSingleTaco}
+        />
       </Marker>
     ));
     return (
