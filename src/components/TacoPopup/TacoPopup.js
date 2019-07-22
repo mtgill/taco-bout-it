@@ -16,6 +16,7 @@ class TacoPopup extends React.Component {
         <Popup key={locationName}>
         <h4>{locationName}</h4>
         <ul>{tacoNames}</ul>
+        <Link key={'newTaco'} id={locationName} to={`/newTaco/${locationName}`}><button className="btn btn-info btn-sm">Add New Taco</button></Link>
       </Popup>
       </div>
     );
