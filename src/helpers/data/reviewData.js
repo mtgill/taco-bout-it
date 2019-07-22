@@ -15,4 +15,7 @@ const getReviews = tacoId => new Promise((resolve, reject) => {
     })
     .catch(err => reject(err));
 });
-export default { getReviews };
+
+const deleteReview = reviewId => axios.delete(`${fbUrl}/reviews/${reviewId}.json`);
+
+export default { getReviews, deleteReview };
