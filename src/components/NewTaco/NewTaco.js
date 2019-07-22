@@ -45,11 +45,8 @@ class NewTaco extends React.Component {
   saveNewTaco = () => {
     const { newTaco, locationId } = this.state;
     newTaco.locationId = locationId;
-    console.error(newTaco);
     tacoData.addTaco(newTaco)
-      .then(() => {
-        tacoData.getTacos();
-      });
+      .then(() => this.props.history.push('/home'));
   }
 
   render() {
