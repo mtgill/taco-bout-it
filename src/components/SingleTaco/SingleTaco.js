@@ -18,6 +18,14 @@ import reviewData from '../../helpers/data/reviewData';
 
 import './SingleTaco.scss';
 
+const defaultReview = {
+  comment: '',
+  date: '',
+  rating: 0,
+  tacoId: '',
+  uid: '',
+};
+
 class SingleTaco extends React.Component {
   state = {
     taco: {},
@@ -25,6 +33,7 @@ class SingleTaco extends React.Component {
     tacoId: '',
     reviews: [],
     reviewModal: false,
+    newReview: defaultReview,
   }
 
   reviewModalToggle = this.reviewModalToggle.bind(this);
@@ -63,11 +72,33 @@ class SingleTaco extends React.Component {
       .catch(err => console.error('unable to delete', err));
   }
 
+  newReviewStateUpdates = (name, e) => {
+    const { tacoId } = this.state;
+    const tempReview = { ...this.state.newReview };
+    tempReview[name] = e.target.value;
+    tempReview.tacoId = tacoId;
+    this.setState({ newReview: tempReview });
+  }
+
+  newReviewRating = e => this.newReviewStateUpdates('rating', e);
+
+  newReviewComment = e => this.newReviewStateUpdates('comment', e);
+
+  saveNewReview = () => {
+    const { newReview, tacoId } = this.state;
+    console.error(newReview);
+    reviewData.addReview(newReview)
+      .then(() => {
+        this.setState({ reviewModal: false });
+        this.getReviews(tacoId);
+      });
+  }
+
   render() {
     const { taco, location, reviews } = this.state;
     const makeReviews = reviews.map(review => (
       <Review
-      key={review.rating}
+      key={review.id}
       id={review.id}
       comment={review.comment}
       date={review.date}
@@ -97,18 +128,18 @@ class SingleTaco extends React.Component {
             <FormGroup>
             <Label for="rating">Rating</Label>{' '}
                 <Input
-                // onChange={this.newLocationName}
+                onChange={this.newReviewRating}
                 name="rating"
                 />
                 <Label for="comment">Comments</Label>{' '}
                 <Input
-                // onChange={this.newLocationAddress}
+                onChange={this.newReviewComment}
                 name="comment"
                 />
             </FormGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary">Save Review</Button>
+            <Button color="primary" onClick={this.saveNewReview}>Save Review</Button>
           </ModalFooter>
         </Modal>
           </div>

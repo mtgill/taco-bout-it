@@ -18,4 +18,6 @@ const getReviews = tacoId => new Promise((resolve, reject) => {
 
 const deleteReview = reviewId => axios.delete(`${fbUrl}/reviews/${reviewId}.json`);
 
-export default { getReviews, deleteReview };
+const addReview = newReview => axios.post(`${fbUrl}/reviews.json`, newReview);
+
+export default { getReviews, deleteReview, addReview };
