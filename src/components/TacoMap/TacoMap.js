@@ -41,7 +41,7 @@ class TacoMap extends React.Component {
       position={[location.lat, location.lng]}
       onClick={this.selectLocation}>
         <TacoPopup
-        key={'tacoPopup'}
+        key={location.id}
         locationTacos={locationTacos}
         locationName={location.name}
         locationId={location.id}

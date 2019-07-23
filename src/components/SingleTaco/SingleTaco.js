@@ -100,7 +100,6 @@ class SingleTaco extends React.Component {
 
   render() {
     const { taco, location, reviews } = this.state;
-    // console.error(this.getDate());
     const makeReviews = reviews.map(review => (
       <Review
       key={review.id}
