@@ -11,6 +11,8 @@ import {
   ModalFooter,
 } from 'reactstrap';
 
+import moment from 'moment';
+
 import tacoData from '../../helpers/data/tacoData';
 import Review from '../Review/Review';
 
@@ -76,6 +78,7 @@ class SingleTaco extends React.Component {
     const { tacoId } = this.state;
     const tempReview = { ...this.state.newReview };
     tempReview[name] = e.target.value;
+    tempReview.date = this.getDate();
     tempReview.tacoId = tacoId;
     this.setState({ newReview: tempReview });
   }
@@ -84,9 +87,10 @@ class SingleTaco extends React.Component {
 
   newReviewComment = e => this.newReviewStateUpdates('comment', e);
 
+  getDate = () => moment().format('MMMM Do YYYY');
+
   saveNewReview = () => {
     const { newReview, tacoId } = this.state;
-    console.error(newReview);
     reviewData.addReview(newReview)
       .then(() => {
         this.setState({ reviewModal: false });
@@ -96,6 +100,7 @@ class SingleTaco extends React.Component {
 
   render() {
     const { taco, location, reviews } = this.state;
+    // console.error(this.getDate());
     const makeReviews = reviews.map(review => (
       <Review
       key={review.id}
