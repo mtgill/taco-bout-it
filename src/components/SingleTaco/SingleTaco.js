@@ -1,5 +1,16 @@
 import React from 'react';
 
+import {
+  Button,
+  FormGroup,
+  Input,
+  Label,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from 'reactstrap';
+
 import tacoData from '../../helpers/data/tacoData';
 import Review from '../Review/Review';
 
@@ -13,6 +24,16 @@ class SingleTaco extends React.Component {
     location: '',
     tacoId: '',
     reviews: [],
+    reviewModal: false,
+  }
+
+  reviewModalToggle = this.reviewModalToggle.bind(this);
+
+  reviewModalToggle(e) {
+    e.preventDefault();
+    this.setState(prevState => ({
+      reviewModal: !prevState.reviewModal,
+    }));
   }
 
   getReviews = () => {
@@ -55,20 +76,44 @@ class SingleTaco extends React.Component {
       />
     ));
     return (
-        <div className="SingleTaco col-10">
+      <div className="SingleTaco">
+        <div className="col-10">
           <div className="card">
             <div className="card-body">
               <h3 className="card-title">{taco.name} - {location}</h3>
               <h5 className="card-text">Taco Name: {taco.name}</h5>
               <h5 className="card-text">Location: {location}</h5>
               <h5 className="card-text">Ingredients: {taco.ingredients}</h5>
-              <button className="btn btn-success">Add Review</button>
+              <button className="btn btn-success" onClick={this.reviewModalToggle}>Add Review</button>
             </div>
           </div>
           <div>
             {makeReviews}
+          </div>
+          <div className="reviewModal">
+          <Modal isOpen={this.state.reviewModal} toggle={this.reviewModalToggle} >
+          <ModalHeader toggle={this.toggle}>Add New Review</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+            <Label for="rating">Rating</Label>{' '}
+                <Input
+                // onChange={this.newLocationName}
+                name="rating"
+                />
+                <Label for="comment">Comments</Label>{' '}
+                <Input
+                // onChange={this.newLocationAddress}
+                name="comment"
+                />
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary">Save Review</Button>
+          </ModalFooter>
+        </Modal>
+          </div>
         </div>
-        </div>
+      </div>
     );
   }
 }
