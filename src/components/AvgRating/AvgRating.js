@@ -1,6 +1,6 @@
 import React from 'react';
 
-import reviewData from '../../helpers/data/reviewData';
+import { Link } from 'react-router-dom';
 
 import './AvgRating.scss';
 
@@ -18,16 +18,18 @@ class AvgRating extends React.Component {
         tempRating.push(parseInt(review.rating, 10));
       });
       const avg = tempRating.reduce((a, b) => a + b, 0) / tempRating.length;
-      console.error(avgRatings);
       this.setState({ rating: avg });
     }
   }
 
   render() {
+    const { name, id, loc } = this.props;
+    const { rating } = this.state;
     return (
-      <div className="AvgRating">
-        <h6>{this.state.rating}</h6>
-      </div>
+      <tr>
+      <td><Link to={`/singleTaco/${id}/${loc}`}>{name}</Link></td>
+      <td>{rating}</td>
+    </tr>
     );
   }
 }
