@@ -16,6 +16,7 @@ class Review extends React.Component {
       comment,
       rating,
       id,
+      editReview,
     } = this.props;
     return (
       <div className="Review">
@@ -24,6 +25,7 @@ class Review extends React.Component {
         <h5>Comment: {comment}</h5>
         <h5>Rating: {rating}</h5>
         <button id={id} className="btn btn-danger" onClick={this.reviewToDelete}>Delete</button>
+        <button id={id} className="btn btn-info" onClick={editReview}>Edit Review</button>
       </div>
     );
   }

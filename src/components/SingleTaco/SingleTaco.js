@@ -37,6 +37,8 @@ class SingleTaco extends React.Component {
     reviews: [],
     reviewModal: false,
     newReview: defaultReview,
+    ratingInput: 0,
+    commentInput: '',
   }
 
   reviewModalToggle = this.reviewModalToggle.bind(this);
@@ -100,8 +102,24 @@ class SingleTaco extends React.Component {
       });
   }
 
+  editReview = (e) => {
+    this.reviewModalToggle(e);
+    const reviewId = e.target.id;
+    reviewData.getSingleReview(reviewId)
+      .then((reviewPromise) => {
+        const review = reviewPromise.data;
+        this.setState({ ratingInput: review.rating, commentInput: review.comment });
+      });
+  };
+
   render() {
-    const { taco, location, reviews } = this.state;
+    const {
+      taco,
+      location,
+      reviews,
+      ratingInput,
+      commentInput,
+    } = this.state;
     const makeReviews = reviews.map(review => (
       <Review
       key={review.id}
@@ -110,6 +128,7 @@ class SingleTaco extends React.Component {
       date={review.date}
       rating={review.rating}
       deleteReview={this.deleteReview}
+      editReview={this.editReview}
       />
     ));
     return (
@@ -132,18 +151,22 @@ class SingleTaco extends React.Component {
           <ModalHeader toggle={this.toggle}>Add New Review</ModalHeader>
           <ModalBody>
             <InputGroup>
-            <Label for="rating">Rating</Label>{' '}
+            <Label for="rating">Rating: </Label>{' '}
                 <Input
                 min={0}
                 max={5}
                 type="number"
                 onChange={this.newReviewRating}
                 name="rating"
+                value={ratingInput}
                 />
-                <Label for="comment">Comments</Label>{' '}
+                </InputGroup>
+                <InputGroup>
+                <Label for="comment">Comments: </Label>{' '}
                 <Input
                 onChange={this.newReviewComment}
                 name="comment"
+                value={commentInput}
                 />
             </InputGroup>
           </ModalBody>

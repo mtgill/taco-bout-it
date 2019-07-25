@@ -29,6 +29,7 @@ const getAllReviews = tacoId => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const getSingleReview = reviewId => axios.get(`${fbUrl}/reviews/${reviewId}.json`);
 
 const deleteReview = reviewId => axios.delete(`${fbUrl}/reviews/${reviewId}.json`);
 
@@ -39,4 +40,5 @@ export default {
   deleteReview,
   addReview,
   getAllReviews,
+  getSingleReview,
 };
