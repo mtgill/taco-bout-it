@@ -6,32 +6,23 @@ import './AvgRating.scss';
 
 class AvgRating extends React.Component {
   state = {
-    avg: 0,
-    allRatings: [],
-  }
-
-  getAverageRating = () => {
-    const { tacoId, avgRating } = this.props;
-    const { avg, allRatings } = this.state;
-    reviewData.getReviews(tacoId)
-      .then((reviews) => {
-        reviews.forEach((review) => {
-          allRatings.push(review.rating);
-        });
-        console.error('all ratings', allRatings);
-      });
-    this.setState({ allRatings });
-  }
-
-  componentDidMount() {
-    this.getAverageRating();
+    avg:
+    parseFloat(this.props.ratings.reduce((a, b) => a + b, 0) / this.props.ratings.length, 2),
   }
 
   render() {
-    const { allRatings } = this.state;
+    console.error('allratings in render', this.props.ratings);
+    const showAvg = () => {
+      const { avg } = this.state;
+      return (
+      <div>
+        <p>{avg}</p>
+      </div>
+      );
+    };
     return (
       <div className="AvgRating">
-        <h6>{allRatings}</h6>
+        <h6>{showAvg}</h6>
       </div>
     );
   }
