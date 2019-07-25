@@ -4,6 +4,7 @@ import {
   Button,
   FormGroup,
   Input,
+  InputGroup,
   Label,
   Modal,
   ModalHeader,
@@ -80,6 +81,7 @@ class SingleTaco extends React.Component {
     tempReview[name] = e.target.value;
     tempReview.date = this.getDate();
     tempReview.tacoId = tacoId;
+    tempReview.rating = parseFloat(tempReview.rating, 2);
     this.setState({ newReview: tempReview });
   }
 
@@ -100,7 +102,6 @@ class SingleTaco extends React.Component {
 
   render() {
     const { taco, location, reviews } = this.state;
-    // console.error(this.getDate());
     const makeReviews = reviews.map(review => (
       <Review
       key={review.id}
@@ -130,9 +131,12 @@ class SingleTaco extends React.Component {
           <Modal isOpen={this.state.reviewModal} toggle={this.reviewModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Review</ModalHeader>
           <ModalBody>
-            <FormGroup>
+            <InputGroup>
             <Label for="rating">Rating</Label>{' '}
                 <Input
+                min={0}
+                max={5}
+                type="number"
                 onChange={this.newReviewRating}
                 name="rating"
                 />
@@ -141,7 +145,7 @@ class SingleTaco extends React.Component {
                 onChange={this.newReviewComment}
                 name="comment"
                 />
-            </FormGroup>
+            </InputGroup>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.saveNewReview}>Save Review</Button>

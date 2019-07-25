@@ -16,8 +16,27 @@ const getReviews = tacoId => new Promise((resolve, reject) => {
     .catch(err => reject(err));
 });
 
+const getAllReviews = tacoId => new Promise((resolve, reject) => {
+  axios.get(`${fbUrl}/reviews.json`)
+    .then((res) => {
+      const reviews = [];
+      Object.keys(res.data).forEach((fbKey) => {
+        res.data[fbKey].id = fbKey;
+        reviews.push(res.data[fbKey]);
+      });
+      resolve(reviews);
+    })
+    .catch(err => reject(err));
+});
+
+
 const deleteReview = reviewId => axios.delete(`${fbUrl}/reviews/${reviewId}.json`);
 
 const addReview = newReview => axios.post(`${fbUrl}/reviews.json`, newReview);
 
-export default { getReviews, deleteReview, addReview };
+export default {
+  getReviews,
+  deleteReview,
+  addReview,
+  getAllReviews,
+};
