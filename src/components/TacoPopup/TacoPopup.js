@@ -11,24 +11,24 @@ import './TacoPopup.scss';
 
 class TacoPopup extends React.Component {
   state = {
-    allRatings: [],
+    allReviews: [],
   }
 
   componentDidMount() {
-    const { allRatings } = this.state;
+    const { allReviews } = this.state;
     reviewData.getAllReviews()
       .then((reviews) => {
         reviews.forEach((review) => {
-          allRatings.push(parseFloat(review.rating));
+          allReviews.push(review);
         });
       });
   }
 
   render() {
-    const { allRatings } = this.state;
+    const { allReviews } = this.state;
     const { locationName, locationTacos, locationId } = this.props;
     const tacoRow = locationTacos.map(taco => (
-   <AvgRating key={taco.name} loc={locationName} ratings={allRatings} id={taco.id} to={`/singleTaco/${taco.id}/${locationName}`}><li>{taco.name}</li></AvgRating>));
+   <AvgRating key={taco.name} loc={locationName} reviews={allReviews} id={taco.id} to={`/singleTaco/${taco.id}/${locationName}`}><li>{taco.name}</li></AvgRating>));
     return (
       <div className="TacoPopup">
         <Popup key={locationName}>
