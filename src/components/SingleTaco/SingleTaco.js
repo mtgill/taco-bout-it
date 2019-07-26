@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   Button,
+  Form,
   FormGroup,
   Input,
   InputGroup,
@@ -37,6 +38,10 @@ class SingleTaco extends React.Component {
     reviews: [],
     reviewModal: false,
     newReview: defaultReview,
+    ratingInput: 0,
+    commentInput: '',
+    revId: '',
+    edit: false,
   }
 
   reviewModalToggle = this.reviewModalToggle.bind(this);
@@ -100,8 +105,45 @@ class SingleTaco extends React.Component {
       });
   }
 
+  editReview = (reviewId, e) => {
+    this.reviewModalToggle(e);
+    this.setState({ edit: true });
+    reviewData.getSingleReview(reviewId)
+      .then((reviewPromise) => {
+        const review = reviewPromise.data;
+        console.error(reviewId);
+        this.setState({
+          ratingInput: review.rating,
+          commentInput: review.comment,
+          revId: reviewId,
+        });
+      });
+  };
+
+  updateReview = () => {
+    const { newReview, tacoId, revId } = this.state;
+    reviewData.updateReview(newReview, revId)
+      .then(() => {
+        this.setState({
+          reviewModal: false,
+          edit: false,
+          revId: '',
+          ratingInput: 0,
+          commentInput: '',
+        });
+        this.getReviews(tacoId);
+      });
+  }
+
   render() {
-    const { taco, location, reviews } = this.state;
+    const {
+      taco,
+      location,
+      reviews,
+      ratingInput,
+      commentInput,
+      edit,
+    } = this.state;
     const makeReviews = reviews.map(review => (
       <Review
       key={review.id}
@@ -110,6 +152,7 @@ class SingleTaco extends React.Component {
       date={review.date}
       rating={review.rating}
       deleteReview={this.deleteReview}
+      editReview={this.editReview}
       />
     ));
     return (
@@ -131,24 +174,30 @@ class SingleTaco extends React.Component {
           <Modal isOpen={this.state.reviewModal} toggle={this.reviewModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Review</ModalHeader>
           <ModalBody>
-            <InputGroup>
-            <Label for="rating">Rating</Label>{' '}
+            <Form>
+            <FormGroup>
+            <Label for="rating">Rating: </Label>{' '}
                 <Input
-                min={0}
-                max={5}
+                className="form-control"
                 type="number"
                 onChange={this.newReviewRating}
                 name="rating"
+                placeholder={ratingInput}
                 />
-                <Label for="comment">Comments</Label>{' '}
+                </FormGroup>
+                <FormGroup>
+                <Label for="comment">Comments: </Label>{' '}
                 <Input
+                type="textarea"
                 onChange={this.newReviewComment}
                 name="comment"
+                placeholder={commentInput}
                 />
-            </InputGroup>
+            </FormGroup>
+            </Form>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.saveNewReview}>Save Review</Button>
+            <Button color="primary" onClick={edit ? this.updateReview : this.saveNewReview}>Save Review</Button>
           </ModalFooter>
         </Modal>
           </div>
