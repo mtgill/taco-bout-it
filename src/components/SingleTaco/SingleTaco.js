@@ -39,6 +39,8 @@ class SingleTaco extends React.Component {
     newReview: defaultReview,
     ratingInput: 0,
     commentInput: '',
+    revId: '',
+    edit: false,
   }
 
   reviewModalToggle = this.reviewModalToggle.bind(this);
@@ -102,15 +104,35 @@ class SingleTaco extends React.Component {
       });
   }
 
-  editReview = (e) => {
+  editReview = (reviewId, e) => {
     this.reviewModalToggle(e);
-    const reviewId = e.target.id;
+    this.setState({ edit: true });
     reviewData.getSingleReview(reviewId)
       .then((reviewPromise) => {
         const review = reviewPromise.data;
-        this.setState({ ratingInput: review.rating, commentInput: review.comment });
+        console.error(reviewId);
+        this.setState({
+          ratingInput: review.rating,
+          commentInput: review.comment,
+          revId: reviewId,
+        });
       });
   };
+
+  updateReview = () => {
+    const { newReview, tacoId, revId } = this.state;
+    reviewData.updateReview(newReview, revId)
+      .then(() => {
+        this.setState({
+          reviewModal: false,
+          edit: false,
+          revId: '',
+          ratingInput: 0,
+          commentInput: '',
+        });
+        this.getReviews(tacoId);
+      });
+  }
 
   render() {
     const {
@@ -119,6 +141,7 @@ class SingleTaco extends React.Component {
       reviews,
       ratingInput,
       commentInput,
+      edit,
     } = this.state;
     const makeReviews = reviews.map(review => (
       <Review
@@ -158,7 +181,7 @@ class SingleTaco extends React.Component {
                 type="number"
                 onChange={this.newReviewRating}
                 name="rating"
-                value={ratingInput}
+                placeholder={ratingInput}
                 />
                 </InputGroup>
                 <InputGroup>
@@ -166,12 +189,12 @@ class SingleTaco extends React.Component {
                 <Input
                 onChange={this.newReviewComment}
                 name="comment"
-                value={commentInput}
+                placeholder={commentInput}
                 />
             </InputGroup>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.saveNewReview}>Save Review</Button>
+            <Button color="primary" onClick={edit ? this.updateReview : this.saveNewReview}>Save Review</Button>
           </ModalFooter>
         </Modal>
           </div>

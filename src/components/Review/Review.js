@@ -10,6 +10,12 @@ class Review extends React.Component {
     deleteReview(reviewId);
   }
 
+  selectReview = (e) => {
+    const { editReview } = this.props;
+    const reviewId = e.target.id;
+    editReview(reviewId, e);
+  }
+
   render() {
     const {
       date,
@@ -25,7 +31,7 @@ class Review extends React.Component {
         <h5>Comment: {comment}</h5>
         <h5>Rating: {rating}</h5>
         <button id={id} className="btn btn-danger" onClick={this.reviewToDelete}>Delete</button>
-        <button id={id} className="btn btn-info" onClick={editReview}>Edit Review</button>
+        <button id={id} className="btn btn-info" onClick={this.selectReview}>Edit Review</button>
       </div>
     );
   }

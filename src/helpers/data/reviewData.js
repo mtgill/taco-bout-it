@@ -35,10 +35,13 @@ const deleteReview = reviewId => axios.delete(`${fbUrl}/reviews/${reviewId}.json
 
 const addReview = newReview => axios.post(`${fbUrl}/reviews.json`, newReview);
 
+const updateReview = (updatedReview, reviewId) => axios.put(`${fbUrl}/reviews/${reviewId}.json`, updatedReview);
+
 export default {
   getReviews,
   deleteReview,
   addReview,
   getAllReviews,
   getSingleReview,
+  updateReview,
 };
