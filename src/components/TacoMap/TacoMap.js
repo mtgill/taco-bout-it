@@ -24,6 +24,7 @@ import TacoPopup from '../TacoPopup/TacoPopup';
 
 import './TacoMap.scss';
 import tacoData from '../../helpers/data/tacoData';
+import reviewData from '../../helpers/data/reviewData';
 
 const defaultTaco = {
   locationId: '',
@@ -42,6 +43,7 @@ class TacoMap extends React.Component {
     newTacoModal: false,
     newTaco: defaultTaco,
     locationId: '',
+    allReviews: [],
   }
 
   newTacoModalToggle = this.newTacoModalToggle.bind(this);
@@ -53,6 +55,15 @@ class TacoMap extends React.Component {
     }));
   }
 
+  componentDidMount() {
+    const { allReviews } = this.state;
+    reviewData.getAllReviews()
+      .then((reviews) => {
+        reviews.forEach((review) => {
+          allReviews.push(review);
+        });
+      });
+  }
 
   selectLocation = (e) => {
     const locationId = e.target.options.id;
@@ -83,18 +94,26 @@ class TacoMap extends React.Component {
   }
 
   saveNewTaco = () => {
-    const { newTaco, locationId } = this.state;
+    const { newTaco, allReviews, locationId } = this.state;
     newTaco.locationId = locationId;
     tacoData.addTaco(newTaco)
       .then(() => {
         tacoData.getTacos()
-          .then(() => this.setState({ newTacoModal: false, locationId: '' }))
-          .catch(err => console.error('could not get locations', err));
+          .then(() => {
+            this.setState({ newTacoModal: false });
+            reviewData.getAllReviews()
+              .then((reviews) => {
+                reviews.forEach((review) => {
+                  allReviews.push(review);
+                });
+              });
+            this.setState({ allReviews });
+          });
       });
   }
 
   render() {
-    const { zoom, locationTacos } = this.state;
+    const { zoom, locationTacos, allReviews } = this.state;
     const center = [this.state.lat, this.state.lng];
     const makeMarkers = this.props.locations.map(location => (
       <Marker
@@ -110,6 +129,7 @@ class TacoMap extends React.Component {
         getSingleTaco={this.getSingleTaco}
         newTacoModalToggle={this.newTacoModalToggle}
         addTaco={this.addTaco}
+        allReviews={allReviews}
         />
       </Marker>
     ));
