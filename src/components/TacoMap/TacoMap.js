@@ -6,6 +6,8 @@ import {
   Marker,
 } from 'react-leaflet';
 
+import Control from 'react-leaflet-control';
+
 import TacoPopup from '../TacoPopup/TacoPopup';
 
 
@@ -57,6 +59,11 @@ class TacoMap extends React.Component {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {makeMarkers}
+
+        <Control position="topleft">
+          <button className="btn btn-info" onClick={this.props.modalToggle}>Add Location</button>
+        </Control>
+
       </Map>
       </div>
     );
