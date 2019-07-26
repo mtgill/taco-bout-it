@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   Button,
+  Form,
   FormGroup,
   Input,
   InputGroup,
@@ -173,25 +174,27 @@ class SingleTaco extends React.Component {
           <Modal isOpen={this.state.reviewModal} toggle={this.reviewModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Review</ModalHeader>
           <ModalBody>
-            <InputGroup>
+            <Form>
+            <FormGroup>
             <Label for="rating">Rating: </Label>{' '}
                 <Input
-                min={0}
-                max={5}
+                className="form-control"
                 type="number"
                 onChange={this.newReviewRating}
                 name="rating"
                 placeholder={ratingInput}
                 />
-                </InputGroup>
-                <InputGroup>
+                </FormGroup>
+                <FormGroup>
                 <Label for="comment">Comments: </Label>{' '}
                 <Input
+                type="textarea"
                 onChange={this.newReviewComment}
                 name="comment"
                 placeholder={commentInput}
                 />
-            </InputGroup>
+            </FormGroup>
+            </Form>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={edit ? this.updateReview : this.saveNewReview}>Save Review</Button>
