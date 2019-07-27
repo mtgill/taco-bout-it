@@ -15,6 +15,8 @@ import {
   Table,
 } from 'reactstrap';
 
+import PropTypes from 'prop-types';
+
 import AvgRating from '../AvgRating/AvgRating';
 import tacoData from '../../helpers/data/tacoData';
 
@@ -30,6 +32,15 @@ const defaultTaco = {
 };
 
 class TacoPopup extends React.Component {
+  static propTypes = {
+    addTaco: PropTypes.func.isRequired,
+    locationId: PropTypes.string.isRequired,
+    saveNewTaco: PropTypes.func.isRequired,
+    locationName: PropTypes.string.isRequired,
+    allReviews: PropTypes.array.isRequired,
+    locationTacos: PropTypes.array.isRequired,
+  }
+
   state = {
     tacos: [],
     newTacoModal: false,

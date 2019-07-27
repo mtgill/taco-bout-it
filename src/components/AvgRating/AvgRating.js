@@ -4,7 +4,16 @@ import { Link } from 'react-router-dom';
 
 import './AvgRating.scss';
 
+import PropTypes from 'prop-types';
+
 class AvgRating extends React.Component {
+  static propTypes = {
+    reviews: PropTypes.array.isRequired,
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    loc: PropTypes.string.isRequired,
+  }
+
   state = {
     rating: 0,
   }
