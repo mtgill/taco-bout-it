@@ -1,5 +1,16 @@
 import React from 'react';
 
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardHeader,
+  CardTitle,
+  CardSubtitle,
+  Button,
+} from 'reactstrap';
+
 import './Review.scss';
 
 import PropTypes from 'prop-types';
@@ -37,12 +48,13 @@ class Review extends React.Component {
     } = this.props;
     return (
       <div className="Review">
-        <h3>Review</h3>
-        <h5>Date: {date}</h5>
-        <h5>Comment: {comment}</h5>
-        <h5>Rating: {rating}</h5>
-        <button id={id} className="btn btn-danger" onClick={this.reviewToDelete}>Delete</button>
-        <button id={id} className="btn btn-info" onClick={this.selectReview}>Edit Review</button>
+        <Card body className="text-center">
+          <CardHeader><h4>Date: {date}</h4></CardHeader>
+            <CardText>Comment: {comment}</CardText>
+            <CardText>Rating: {rating}</CardText>
+          <Button id={id} className="btn btn-danger reviewButton" onClick={this.reviewToDelete}>Delete</Button>
+          <Button id={id} className="btn btn-info reviewButton" onClick={this.selectReview}>Edit Review</Button>
+        </Card>
       </div>
     );
   }

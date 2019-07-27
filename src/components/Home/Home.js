@@ -93,6 +93,7 @@ class Home extends React.Component {
     const { tacos, locations } = this.state;
     return (
       <div className="Home">
+        <h2 className="home-header">It's Taco Time!</h2>
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Location</ModalHeader>
