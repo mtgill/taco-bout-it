@@ -59,14 +59,36 @@ class Home extends React.Component {
   }
 
   getZomatoLocations = () => {
-    const zLocs = [];
-    zomatoData.getAllZomatoLocations()
-      .then(res => zLocs.push(res.data.restaurants));
+    let zLocs = [];
+    zomatoData.getZomatoLocations()
+      .then((res) => {
+        zomatoData.getZomatoLocationsTwo()
+          .then((resTwo) => {
+            zomatoData.getZomatoLocationsThree()
+              .then((resThree) => {
+                zomatoData.getZomatoLocationsFour()
+                  .then((resFour) => {
+                    zomatoData.getZomatoLocationsFive()
+                      .then((resFive) => {
+                        zLocs = [
+                          ...res.data.restaurants,
+                          ...resTwo.data.restaurants,
+                          ...resThree.data.restaurants,
+                          ...resFour.data.restaurants,
+                          ...resFive.data.restaurants,
+                        ];
+                        this.setState({ zomatoLocs: zLocs });
+                      });
+                  });
+              });
+          });
+      });
   }
 
   componentDidMount() {
     this.getLocations();
     this.getTacos();
+    this.getZomatoLocations();
   }
 
   newLocationStateUpdates = (name, e) => {
@@ -101,7 +123,7 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
-    console.error(zomatoLocs);
+    console.error('zomato from home', zomatoLocs);
     return (
       <div className="Home">
         <h2 className="home-header">It's Taco Time!</h2>
@@ -136,7 +158,7 @@ class Home extends React.Component {
             <Button color="primary" onClick={this.saveNewLoc}>Add Location</Button>
           </ModalFooter>
         </Modal>
-        <ZomatoLocation key={'zomato'} locations={zomatoLocs} />
+        {/* <ZomatoLocation key={'zomato'} locations={zomatoLocs} /> */}
       </div>
     );
   }
