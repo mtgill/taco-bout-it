@@ -17,6 +17,7 @@ import locationData from '../../helpers/data/locationData';
 import tacoData from '../../helpers/data/tacoData';
 
 import zomatoData from '../../helpers/data/zomatoData';
+import ZomatoLocation from '../ZomatoLocation/ZomatoLocation';
 
 import './Home.scss';
 
@@ -57,13 +58,15 @@ class Home extends React.Component {
       .catch(err => console.error('could not get locations', err));
   }
 
+  getZomatoLocations = () => {
+    const zLocs = [];
+    zomatoData.getAllZomatoLocations()
+      .then(res => zLocs.push(res.data.restaurants));
+  }
+
   componentDidMount() {
     this.getLocations();
     this.getTacos();
-    zomatoData.getZomatoLocations()
-      .then((res) => {
-        this.setState({ zomatoLocs: res.data });
-      });
   }
 
   newLocationStateUpdates = (name, e) => {
@@ -98,7 +101,7 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
-    console.error(zomatoLocs.restaurants);
+    console.error(zomatoLocs);
     return (
       <div className="Home">
         <h2 className="home-header">It's Taco Time!</h2>
@@ -133,6 +136,7 @@ class Home extends React.Component {
             <Button color="primary" onClick={this.saveNewLoc}>Add Location</Button>
           </ModalFooter>
         </Modal>
+        <ZomatoLocation key={'zomato'} locations={zomatoLocs} />
       </div>
     );
   }
