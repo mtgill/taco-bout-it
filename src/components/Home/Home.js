@@ -17,6 +17,7 @@ import locationData from '../../helpers/data/locationData';
 import tacoData from '../../helpers/data/tacoData';
 
 import zomatoData from '../../helpers/data/zomatoData';
+import ZomatoLocation from '../ZomatoLocation/ZomatoLocation';
 
 import './Home.scss';
 
@@ -57,13 +58,37 @@ class Home extends React.Component {
       .catch(err => console.error('could not get locations', err));
   }
 
+  getZomatoLocations = () => {
+    let zLocs = [];
+    zomatoData.getZomatoLocations()
+      .then((res) => {
+        zomatoData.getZomatoLocationsTwo()
+          .then((resTwo) => {
+            zomatoData.getZomatoLocationsThree()
+              .then((resThree) => {
+                zomatoData.getZomatoLocationsFour()
+                  .then((resFour) => {
+                    zomatoData.getZomatoLocationsFive()
+                      .then((resFive) => {
+                        zLocs = [
+                          ...res.data.restaurants,
+                          ...resTwo.data.restaurants,
+                          ...resThree.data.restaurants,
+                          ...resFour.data.restaurants,
+                          ...resFive.data.restaurants,
+                        ];
+                        this.setState({ zomatoLocs: zLocs });
+                      });
+                  });
+              });
+          });
+      });
+  }
+
   componentDidMount() {
     this.getLocations();
     this.getTacos();
-    zomatoData.getZomatoLocations()
-      .then((res) => {
-        this.setState({ zomatoLocs: res.data });
-      });
+    this.getZomatoLocations();
   }
 
   newLocationStateUpdates = (name, e) => {
@@ -98,11 +123,16 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
-    console.error(zomatoLocs.restaurants);
+    // console.error('zomato from home', zomatoLocs);
     return (
-      <div className="Home">
-        <h2 className="home-header">It's Taco Time!</h2>
+      <div className="Home row">
+        {/* <h2 className="home-header">It's Taco Time!</h2> */}
+        <div className="col-8">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
+        </div>
+        <div className="col-4">
+        <ZomatoLocation key={'zomato'} locations={zomatoLocs} />
+        </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Location</ModalHeader>
           <ModalBody>
