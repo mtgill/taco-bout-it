@@ -6,6 +6,7 @@ import {
   Marker,
 } from 'react-leaflet';
 
+import PropTypes from 'prop-types';
 
 import Control from 'react-leaflet-control';
 
@@ -16,8 +17,13 @@ import './TacoMap.scss';
 import tacoData from '../../helpers/data/tacoData';
 import reviewData from '../../helpers/data/reviewData';
 
-
 class TacoMap extends React.Component {
+  static propTypes = {
+    tacos: PropTypes.array.isRequired,
+    locations: PropTypes.array.isRequired,
+    modalToggle: PropTypes.func.isRequired,
+  }
+
   state = {
     lat: 36.1627,
     lng: -86.7816,

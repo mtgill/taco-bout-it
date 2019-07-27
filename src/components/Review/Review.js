@@ -2,7 +2,19 @@ import React from 'react';
 
 import './Review.scss';
 
+import PropTypes from 'prop-types';
+
+
 class Review extends React.Component {
+  static propTypes = {
+    date: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    comment: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    deleteReview: PropTypes.func.isRequired,
+    editReview: PropTypes.func.isRequired,
+  }
+
   reviewToDelete = (e) => {
     e.preventDefault();
     const reviewId = e.target.id;

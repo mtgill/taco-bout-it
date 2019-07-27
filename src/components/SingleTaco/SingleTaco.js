@@ -12,6 +12,8 @@ import {
   ModalFooter,
 } from 'reactstrap';
 
+import PropTypes from 'prop-types';
+
 import moment from 'moment';
 
 import tacoData from '../../helpers/data/tacoData';
@@ -30,6 +32,11 @@ const defaultReview = {
 };
 
 class SingleTaco extends React.Component {
+  static propTypes = {
+    tacoId: PropTypes.string,
+    location: PropTypes.object.isRequired,
+  }
+
   state = {
     taco: {},
     location: '',
