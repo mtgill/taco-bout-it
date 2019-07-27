@@ -6,16 +6,6 @@ import {
   Marker,
 } from 'react-leaflet';
 
-import {
-  Button,
-  FormGroup,
-  Input,
-  Label,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-} from 'reactstrap';
 
 import Control from 'react-leaflet-control';
 
@@ -26,13 +16,6 @@ import './TacoMap.scss';
 import tacoData from '../../helpers/data/tacoData';
 import reviewData from '../../helpers/data/reviewData';
 
-const defaultTaco = {
-  locationId: '',
-  ingredients: '',
-  imageUrl: '',
-  avgRating: 0,
-  name: '',
-};
 
 class TacoMap extends React.Component {
   state = {
@@ -40,20 +23,10 @@ class TacoMap extends React.Component {
     lng: -86.7816,
     zoom: 12,
     locationTacos: [],
-    newTacoModal: false,
-    newTaco: defaultTaco,
     locationId: '',
     allReviews: [],
   }
 
-  newTacoModalToggle = this.newTacoModalToggle.bind(this);
-
-  newTacoModalToggle(e) {
-    e.preventDefault();
-    this.setState(prevState => ({
-      newTacoModal: !prevState.newTacoModal,
-    }));
-  }
 
   componentDidMount() {
     const { allReviews } = this.state;
@@ -75,40 +48,15 @@ class TacoMap extends React.Component {
     tacoData.getSingleTaco(tacoId);
   }
 
-  newTacoStateUpdates = (name, e) => {
-    const { locationId } = this.state;
-    const tempTaco = { ...this.state.newTaco };
-    tempTaco[name] = e.target.value;
-    tempTaco.locationId = locationId;
-    this.setState({ newTaco: tempTaco });
-  }
-
-  newTacoName = e => this.newTacoStateUpdates('name', e);
-
-  newTacoIngredients = e => this.newTacoStateUpdates('ingredients', e);
-
-  newTacoImage = e => this.newTacoStateUpdates('imageUrl', e);
-
   addTaco = (locationId) => {
     this.setState({ locationId });
   }
 
-  saveNewTaco = () => {
-    const { newTaco, allReviews, locationId } = this.state;
-    newTaco.locationId = locationId;
-    tacoData.addTaco(newTaco)
-      .then(() => {
-        tacoData.getTacos()
-          .then(() => {
-            this.setState({ newTacoModal: false });
-            reviewData.getAllReviews()
-              .then((reviews) => {
-                reviews.forEach((review) => {
-                  allReviews.push(review);
-                });
-              });
-            this.setState({ allReviews });
-          });
+  saveNewTaco = (locationId) => {
+    tacoData.getTacos()
+      .then((tacos) => {
+        const matchTacos = tacos.filter(x => x.locationId === locationId);
+        this.setState({ locationTacos: matchTacos });
       });
   }
 
@@ -130,6 +78,7 @@ class TacoMap extends React.Component {
         newTacoModalToggle={this.newTacoModalToggle}
         addTaco={this.addTaco}
         allReviews={allReviews}
+        saveNewTaco={this.saveNewTaco}
         />
       </Marker>
     ));
@@ -147,31 +96,6 @@ class TacoMap extends React.Component {
         </Control>
 
       </Map>
-      <Modal isOpen={this.state.newTacoModal} toggle={this.newTacoModalToggle} >
-          <ModalHeader toggle={this.toggle}>Add New Taco</ModalHeader>
-          <ModalBody>
-          <FormGroup>
-            <Label for="name">Taco Name</Label>{' '}
-                <Input
-                onChange={this.newTacoName}
-                name="name"
-                />
-                <Label for="ingredients">Ingredients</Label>{' '}
-                <Input
-                onChange={this.newTacoIngredients}
-                name="ingredients"
-                />
-                <Label for="imageUrl">Image URL</Label>{' '}
-                <Input
-                onChange={this.newTacoImage}
-                name="imageUrl"
-                />
-            </FormGroup>
-          </ModalBody>
-          <ModalFooter>
-          <Button color="primary" onClick={this.saveNewTaco}>Add Taco</Button>
-          </ModalFooter>
-        </Modal>
       </div>
     );
   }

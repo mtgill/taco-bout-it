@@ -22,7 +22,6 @@ class Review extends React.Component {
       comment,
       rating,
       id,
-      editReview,
     } = this.props;
     return (
       <div className="Review">
