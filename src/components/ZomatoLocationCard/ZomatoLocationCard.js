@@ -1,5 +1,12 @@
 import React from 'react';
 
+import {
+  Card,
+  CardText,
+  CardHeader,
+  Button,
+} from 'reactstrap';
+
 import './ZomatoLocationCard.scss';
 
 class ZomatoLocationCard extends React.Component {
@@ -8,7 +15,9 @@ class ZomatoLocationCard extends React.Component {
     console.error('locations from cards', location.restaurant.name);
     return (
       <div className="ZomatoLocationCard">
-        <h3>{location.restaurant.name}</h3>
+                <Card body className="text-center">
+          <CardHeader><h4>{location.restaurant.name}</h4></CardHeader>
+        </Card>
       </div>
     );
   }

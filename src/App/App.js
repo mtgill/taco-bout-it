@@ -75,8 +75,8 @@ class App extends React.Component {
                   <PrivateRoute path="/singleTaco/:id/:loc" component={SingleTaco} authed={authed} />
                   <Redirect from="*" to="/auth" />
                 </Switch>
+                </div>
               </div>
-            </div>
           </React.Fragment>
         </BrowserRouter>
       </div>
