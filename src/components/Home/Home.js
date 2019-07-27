@@ -33,6 +33,7 @@ class Home extends React.Component {
     tacos: [],
     locationModal: false,
     newLoc: defaultLocation,
+    zomatoLocs: [],
   }
 
   locationModalToggle = this.locationModalToggle.bind(this);
@@ -59,6 +60,10 @@ class Home extends React.Component {
   componentDidMount() {
     this.getLocations();
     this.getTacos();
+    zomatoData.getZomatoLocations()
+      .then((res) => {
+        this.setState({ zomatoLocs: res.data });
+      });
   }
 
   newLocationStateUpdates = (name, e) => {
@@ -92,9 +97,8 @@ class Home extends React.Component {
   }
 
   render() {
-    const { tacos, locations } = this.state;
-    zomatoData.getZomatoLocations()
-      .then(res => console.error(res.data));
+    const { tacos, locations, zomatoLocs } = this.state;
+    console.error(zomatoLocs.restaurants);
     return (
       <div className="Home">
         <h2 className="home-header">It's Taco Time!</h2>

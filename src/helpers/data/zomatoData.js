@@ -2,8 +2,6 @@ import axios from 'axios';
 
 import zomatoConfig from '../apiKeys.json';
 
-const zomatoUrl = zomatoConfig.zomatoKeys.reqUrl;
-
 const config = { headers: { 'user-key': `${zomatoConfig.zomatoKeys.apiKey}` } };
 
 
@@ -15,8 +13,7 @@ const getZomatoLocations = () => axios.get('https://developers.zomato.com/api/v2
 //     .then((res) => {
 //       const zomLocs = [];
 //       res.data.forEach((restaurant) => {
-//         res.data[restaurant].id = restaurant;
-//         zomLocs.push(res.data[restaurant]);
+//         zomLocs.push(restaurant.name);
 //       });
 //       resolve(zomLocs);
 //     })
