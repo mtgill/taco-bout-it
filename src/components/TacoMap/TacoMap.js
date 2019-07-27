@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import React from 'react';
 
 import {
@@ -5,6 +6,8 @@ import {
   TileLayer,
   Marker,
 } from 'react-leaflet';
+
+import L from 'leaflet';
 
 import PropTypes from 'prop-types';
 
@@ -16,6 +19,17 @@ import TacoPopup from '../TacoPopup/TacoPopup';
 import './TacoMap.scss';
 import tacoData from '../../helpers/data/tacoData';
 import reviewData from '../../helpers/data/reviewData';
+
+const tacoIcon = L.icon({
+  iconUrl: 'https://image.flaticon.com/icons/svg/135/135590.svg',
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+
+  iconSize: [38, 95],
+  shadowSize: [50, 64],
+  iconAnchor: [2, 50],
+  shadowAnchor: [10, 45],
+  popupAnchor: [20, -30],
+});
 
 class TacoMap extends React.Component {
   static propTypes = {
@@ -72,6 +86,7 @@ class TacoMap extends React.Component {
     const makeMarkers = this.props.locations.map(location => (
       <Marker
       key={location.name}
+      icon={tacoIcon}
       id={location.id}
       position={[location.lat, location.lng]}
       onClick={this.selectLocation}>
