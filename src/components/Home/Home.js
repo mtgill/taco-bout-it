@@ -16,6 +16,8 @@ import TacoMap from '../TacoMap/TacoMap';
 import locationData from '../../helpers/data/locationData';
 import tacoData from '../../helpers/data/tacoData';
 
+import zomatoData from '../../helpers/data/zomatoData';
+
 import './Home.scss';
 
 const defaultLocation = {
@@ -91,6 +93,8 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations } = this.state;
+    zomatoData.getZomatoLocations()
+      .then(res => console.error(res.data));
     return (
       <div className="Home">
         <h2 className="home-header">It's Taco Time!</h2>
