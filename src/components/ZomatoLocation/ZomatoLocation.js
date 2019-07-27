@@ -6,14 +6,14 @@ import ZomatoLocationCard from '../ZomatoLocationCard/ZomatoLocationCard';
 
 class ZomatoLocation extends React.Component {
   render() {
-    const { locations } = this.props;
-
-    // console.error('locations from zLoc', locations);
-    const makeZomatoLocations = this.props.locations.map(location => (
+    const { zomatoLocations, currentLocations } = this.props;
+    const makeZomatoLocations = zomatoLocations.map(location => (
       <ZomatoLocationCard
-      key={location.name}
+      key={location.restaurant.id}
       location={location}
-      // name={location[0].restaurant.name}
+      name={location.restaurant.name}
+      currentLocations={currentLocations}
+      address={location.restaurant.location.address}
       />
     ));
     return (

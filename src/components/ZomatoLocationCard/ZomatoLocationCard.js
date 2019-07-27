@@ -10,13 +10,29 @@ import {
 import './ZomatoLocationCard.scss';
 
 class ZomatoLocationCard extends React.Component {
+  state = {
+    duplicate: false,
+  }
+
+  componentDidMount() {
+    const { currentLocations, address } = this.props;
+    currentLocations.forEach((location) => {
+      if (location.address === address) {
+        this.setState({ duplicate: true });
+      }
+    });
+  }
+
   render() {
-    const { location, name } = this.props;
-    console.error('locations from cards', location.restaurant.name);
+    const { duplicate } = this.state;
+    const { location, name, address } = this.props;
+    // console.error('locations from cards', location.restaurant.name);
     return (
       <div className="ZomatoLocationCard">
-                <Card body className="text-center">
-          <CardHeader><h4>{location.restaurant.name}</h4></CardHeader>
+        <Card body className="text-center">
+          <CardHeader><h4>{name}</h4></CardHeader>
+          <CardText>{address}</CardText>
+          <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'}>Add This Location!</Button>
         </Card>
       </div>
     );
