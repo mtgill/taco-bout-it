@@ -27,10 +27,10 @@ const defaultLocation = {
 
 class Home extends React.Component {
   state = {
-    locationModal: false,
-    newLoc: defaultLocation,
     locations: [],
     tacos: [],
+    locationModal: false,
+    newLoc: defaultLocation,
   }
 
   locationModalToggle = this.locationModalToggle.bind(this);
@@ -65,6 +65,12 @@ class Home extends React.Component {
     this.setState({ newLoc: tempLoc });
   }
 
+  getLocations = () => {
+    locationData.getLocations()
+      .then(locations => this.setState({ locations }))
+      .catch(err => console.error('could not get locations', err));
+  }
+
   newLocationName = e => this.newLocationStateUpdates('name', e);
 
   newLocationAddress = e => this.newLocationStateUpdates('address', e);
@@ -87,8 +93,7 @@ class Home extends React.Component {
     const { tacos, locations } = this.state;
     return (
       <div className="Home">
-        <TacoMap tacos={tacos} locations={locations} />
-        <button className="btn btn-warning" onClick={this.locationModalToggle}>Add Location</button>
+        <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Location</ModalHeader>
           <ModalBody>

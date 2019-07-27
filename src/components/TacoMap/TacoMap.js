@@ -6,11 +6,15 @@ import {
   Marker,
 } from 'react-leaflet';
 
+
+import Control from 'react-leaflet-control';
+
 import TacoPopup from '../TacoPopup/TacoPopup';
 
 
 import './TacoMap.scss';
 import tacoData from '../../helpers/data/tacoData';
+import reviewData from '../../helpers/data/reviewData';
 
 
 class TacoMap extends React.Component {
@@ -19,6 +23,19 @@ class TacoMap extends React.Component {
     lng: -86.7816,
     zoom: 12,
     locationTacos: [],
+    locationId: '',
+    allReviews: [],
+  }
+
+
+  componentDidMount() {
+    const { allReviews } = this.state;
+    reviewData.getAllReviews()
+      .then((reviews) => {
+        reviews.forEach((review) => {
+          allReviews.push(review);
+        });
+      });
   }
 
   selectLocation = (e) => {
@@ -31,8 +48,20 @@ class TacoMap extends React.Component {
     tacoData.getSingleTaco(tacoId);
   }
 
+  addTaco = (locationId) => {
+    this.setState({ locationId });
+  }
+
+  saveNewTaco = (locationId) => {
+    tacoData.getTacos()
+      .then((tacos) => {
+        const matchTacos = tacos.filter(x => x.locationId === locationId);
+        this.setState({ locationTacos: matchTacos });
+      });
+  }
+
   render() {
-    const { zoom, locationTacos } = this.state;
+    const { zoom, locationTacos, allReviews } = this.state;
     const center = [this.state.lat, this.state.lng];
     const makeMarkers = this.props.locations.map(location => (
       <Marker
@@ -46,6 +75,10 @@ class TacoMap extends React.Component {
         locationName={location.name}
         locationId={location.id}
         getSingleTaco={this.getSingleTaco}
+        newTacoModalToggle={this.newTacoModalToggle}
+        addTaco={this.addTaco}
+        allReviews={allReviews}
+        saveNewTaco={this.saveNewTaco}
         />
       </Marker>
     ));
@@ -57,6 +90,11 @@ class TacoMap extends React.Component {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {makeMarkers}
+
+        <Control position="topleft">
+          <button className="btn btn-info" onClick={this.props.modalToggle}>Add Location</button>
+        </Control>
+
       </Map>
       </div>
     );
