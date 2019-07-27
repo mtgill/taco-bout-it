@@ -123,7 +123,7 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
-    console.error('zomato from home', zomatoLocs);
+    // console.error('zomato from home', zomatoLocs);
     return (
       <div className="Home">
         <h2 className="home-header">It's Taco Time!</h2>
@@ -158,7 +158,7 @@ class Home extends React.Component {
             <Button color="primary" onClick={this.saveNewLoc}>Add Location</Button>
           </ModalFooter>
         </Modal>
-        {/* <ZomatoLocation key={'zomato'} locations={zomatoLocs} /> */}
+        <ZomatoLocation key={'zomato'} locations={zomatoLocs} />
       </div>
     );
   }
