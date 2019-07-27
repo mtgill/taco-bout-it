@@ -7,11 +7,24 @@ import {
   Button,
 } from 'reactstrap';
 
+import locationData from '../../helpers/data/locationData';
+
 import './ZomatoLocationCard.scss';
 
 class ZomatoLocationCard extends React.Component {
   state = {
     duplicate: false,
+  }
+
+  addToMap = () => {
+    const {
+      name,
+      address,
+      lat,
+      lng,
+      addZomatoLocation,
+    } = this.props;
+    addZomatoLocation(name, address, lat, lng);
   }
 
   componentDidMount() {
@@ -32,7 +45,7 @@ class ZomatoLocationCard extends React.Component {
         <Card body className="text-center">
           <CardHeader><h4>{name}</h4></CardHeader>
           <CardText>{address}</CardText>
-          <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'}>Add This Location!</Button>
+          <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'} onClick={this.addToMap}>Add This Location!</Button>
         </Card>
       </div>
     );

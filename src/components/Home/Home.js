@@ -121,6 +121,20 @@ class Home extends React.Component {
       });
   }
 
+  addZomatoLocation = (name, address, lat, lng) => {
+    const newLoc = {
+      name,
+      address,
+      lat,
+      lng,
+    };
+    locationData.addLocation(newLoc)
+      .then(() => {
+        locationData.getLocations()
+          .then(res => this.setState({ locations: res }));
+      });
+  }
+
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
     console.error('zomato from home', zomatoLocs);
@@ -131,7 +145,7 @@ class Home extends React.Component {
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
         <div className="col-4">
-        <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} />
+        <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Location</ModalHeader>
