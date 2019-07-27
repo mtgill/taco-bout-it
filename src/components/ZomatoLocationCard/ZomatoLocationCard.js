@@ -25,15 +25,20 @@ class ZomatoLocationCard extends React.Component {
       addZomatoLocation,
     } = this.props;
     addZomatoLocation(name, address, lat, lng);
+    this.setState({ duplicate: true });
   }
 
-  componentDidMount() {
+  duplicateCheck = () => {
     const { currentLocations, address } = this.props;
     currentLocations.forEach((location) => {
       if (location.address === address) {
         this.setState({ duplicate: true });
       }
     });
+  }
+
+  componentDidMount() {
+    this.duplicateCheck();
   }
 
   render() {

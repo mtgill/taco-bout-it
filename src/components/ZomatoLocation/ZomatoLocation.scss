@@ -1,3 +1,14 @@
 .ZomatoLocation {
   display: block;
+  height: 800px;
+  overflow: scroll;
+  margin-top: 50px;
+}
+
+.SuggestedLocationHeader {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  position: absolute; 
+  top: 0px;
 }

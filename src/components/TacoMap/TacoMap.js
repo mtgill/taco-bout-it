@@ -100,6 +100,7 @@ class TacoMap extends React.Component {
         addTaco={this.addTaco}
         allReviews={allReviews}
         saveNewTaco={this.saveNewTaco}
+        address={location.address}
         />
       </Marker>
     ));

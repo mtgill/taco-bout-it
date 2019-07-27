@@ -21,6 +21,7 @@ class ZomatoLocation extends React.Component {
     ));
     return (
       <div className="ZomatoLocation">
+        <h3 className="SuggestedLocationHeader">Suggested Locations</h3>
         {makeZomatoLocations}
       </div>
     );

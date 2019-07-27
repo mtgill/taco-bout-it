@@ -137,7 +137,6 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
-    console.error('zomato from home', zomatoLocs);
     return (
       <div className="Home row">
         {/* <h2 className="home-header">It's Taco Time!</h2> */}
