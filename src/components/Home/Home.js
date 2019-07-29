@@ -143,7 +143,7 @@ class Home extends React.Component {
         <div className="col-8">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
-        <div className="col-4 zomato-locations">
+        <div className="col-5 zomato-locations">
         <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
