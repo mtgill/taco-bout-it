@@ -2,6 +2,7 @@ import React from 'react';
 
 import {
   Card,
+  CardImg,
   CardText,
   CardHeader,
   Button,
@@ -44,11 +45,14 @@ class ZomatoLocationCard extends React.Component {
   render() {
     const { duplicate } = this.state;
     const { location, name, address } = this.props;
-    // console.error('locations from cards', location.restaurant.name);
+    const locationPhotos = location.restaurant.photos ? (
+      location.restaurant.photos[0].photo.url) : null;
+
     return (
       <div className="ZomatoLocationCard">
         <Card body className="text-center">
           <CardHeader><h4>{name}</h4></CardHeader>
+          <CardImg src={locationPhotos} />
           <CardText>{address}</CardText>
           <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'} onClick={this.addToMap}>{duplicate ? 'Added To Your Locations' : 'Add This Location!'}</Button>
         </Card>
