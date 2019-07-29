@@ -50,7 +50,7 @@ class ZomatoLocationCard extends React.Component {
         <Card body className="text-center">
           <CardHeader><h4>{name}</h4></CardHeader>
           <CardText>{address}</CardText>
-          <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'} onClick={this.addToMap}>Add This Location!</Button>
+          <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'} onClick={this.addToMap}>{duplicate ? 'Added To Your Locations' : 'Add This Location!'}</Button>
         </Card>
       </div>
     );
