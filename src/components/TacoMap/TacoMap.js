@@ -41,7 +41,7 @@ class TacoMap extends React.Component {
   state = {
     lat: 36.1627,
     lng: -86.7816,
-    zoom: 12,
+    zoom: 12.3,
     locationTacos: [],
     locationId: '',
     allReviews: [],
@@ -113,8 +113,8 @@ class TacoMap extends React.Component {
         />
         {makeMarkers}
 
-        <Control position="topleft">
-          <button className="btn btn-info" onClick={this.props.modalToggle}>Add Location</button>
+        <Control position="topright">
+          <button className="btn btn-info" onClick={this.props.modalToggle} size="sm">Add Custom Location</button>
         </Control>
 
       </Map>

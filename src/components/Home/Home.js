@@ -137,13 +137,13 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
+    console.error('zomato from home', zomatoLocs);
     return (
-      <div className="Home row">
-        {/* <h2 className="home-header">It's Taco Time!</h2> */}
+      <div className="Home">
         <div className="col-8">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
-        <div className="col-4">
+        <div className="col-4 zomato-locations">
         <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
