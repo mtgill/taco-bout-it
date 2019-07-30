@@ -65,8 +65,8 @@ class ZomatoLocationCard extends React.Component {
     const { location } = this.props;
     const tempPhotos = [];
     const photoUrls = [];
-    if (location.restaurant.photos) {
-      tempPhotos.push(location.restaurant.photos);
+    if (location.photos) {
+      tempPhotos.push(location.photos);
     }
     tempPhotos.forEach((photoArray) => {
       photoArray.forEach((photoObj) => {
@@ -105,8 +105,8 @@ class ZomatoLocationCard extends React.Component {
   render() {
     const { duplicate, activeIndex, photos } = this.state;
     const { location, name, address } = this.props;
-    const locationPhotos = location.restaurant.photos ? (
-      photos[0]) : null;
+    // const locationPhotos = location.restaurant.photos ? (
+    //   photos[0]) : null;
 
     const slides = photos.map(photo => <CarouselItem
       onExiting={this.onExiting} onExited={this.onExited} key={photo}>

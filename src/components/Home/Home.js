@@ -59,37 +59,11 @@ class Home extends React.Component {
   }
 
   getZomatoLocations = () => {
-    // let zLocs = [];
-
-    zomatoData.getAllZomatoLocations()
+    zomatoData.getZomatoLocations()
       .then((zLocs) => {
-        console.error(zLocs);
-      // this.setState({ zomatoLocs: zLocs });
+        console.error('home', zLocs);
+        this.setState({ zomatoLocs: zLocs });
       });
-
-    // zomatoData.getZomatoLocations()
-    //   .then((res) => {
-    //     zomatoData.getZomatoLocationsTwo()
-    //       .then((resTwo) => {
-    //         zomatoData.getZomatoLocationsThree()
-    //           .then((resThree) => {
-    //             zomatoData.getZomatoLocationsFour()
-    //               .then((resFour) => {
-    //                 zomatoData.getZomatoLocationsFive()
-    //                   .then((resFive) => {
-    //                     zLocs = [
-    //                       ...res.data.restaurants,
-    //                       ...resTwo.data.restaurants,
-    //                       ...resThree.data.restaurants,
-    //                       ...resFour.data.restaurants,
-    //                       ...resFive.data.restaurants,
-    //                     ];
-    //                     this.setState({ zomatoLocs: zLocs });
-    //                   });
-    //               });
-    //           });
-    //       });
-    //   });
   }
 
   componentDidMount() {
