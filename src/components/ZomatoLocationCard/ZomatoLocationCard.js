@@ -104,9 +104,7 @@ class ZomatoLocationCard extends React.Component {
 
   render() {
     const { duplicate, activeIndex, photos } = this.state;
-    const { location, name, address } = this.props;
-    // const locationPhotos = location.restaurant.photos ? (
-    //   photos[0]) : null;
+    const { name, address } = this.props;
 
     const slides = photos.map(photo => <CarouselItem
       onExiting={this.onExiting} onExited={this.onExited} key={photo}>

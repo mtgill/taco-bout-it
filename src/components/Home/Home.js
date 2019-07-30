@@ -59,10 +59,10 @@ class Home extends React.Component {
   }
 
   getZomatoLocations = () => {
-    zomatoData.getZomatoLocations()
+    Promise.all([zomatoData.getZomatoLocations(), zomatoData.getZomatoLocationsTwo()])
       .then((zLocs) => {
-        console.error('home', zLocs);
-        this.setState({ zomatoLocs: zLocs });
+        const zLoc = [...zLocs[0], ...zLocs[1]];
+        this.setState({ zomatoLocs: zLoc });
       });
   }
 
@@ -118,7 +118,6 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
-    console.error('zomato from home', zomatoLocs);
     return (
       <div className="Home">
         <div className="col-8">
