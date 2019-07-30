@@ -1,5 +1,6 @@
 .ZomatoLocation {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   height: 740px;
   overflow: scroll;
   margin-top: 30px;

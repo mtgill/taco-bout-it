@@ -115,14 +115,14 @@ class ZomatoLocationCard extends React.Component {
             onExited={this.onExited}
             key={item}
           >
-            <img className="img-fluid" src={item} alt={item.altText} />
+            <img className="img-fluid carousel-photo" src={item} alt={item.altText} />
             {/* <CarouselCaption captionText={item} captionHeader={item} /> */}
           </CarouselItem>
       );
     });
 
     return (
-      <div className="ZomatoLocationCard col-6">
+      <div className="ZomatoLocationCard col-4 no-gutters">
         <Card body className="text-center">
           <CardHeader><h6>{name}</h6></CardHeader>
           <Carousel
