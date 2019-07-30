@@ -40,7 +40,7 @@ class TacoMap extends React.Component {
 
   state = {
     lat: 36.1627,
-    lng: -86.7816,
+    lng: -86.7824,
     zoom: 12.3,
     locationTacos: [],
     locationId: '',

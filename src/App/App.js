@@ -68,7 +68,7 @@ class App extends React.Component {
           <React.Fragment>
             <MyNavBar authed={authed} />
             <div className="container">
-              <h1 className="home-header">It's Taco Time!</h1>
+              {/* <h1 className="home-header">It's Taco Time!</h1> */}
               <div className="row">
                 <Switch>
                   <PublicRoute path="/auth" component={Auth} authed={authed} />

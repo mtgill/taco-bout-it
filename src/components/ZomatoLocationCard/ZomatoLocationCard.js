@@ -108,21 +108,12 @@ class ZomatoLocationCard extends React.Component {
     const locationPhotos = location.restaurant.photos ? (
       photos[0]) : null;
 
-    const slides = photos.map((item) => {
-      return (
-          <CarouselItem
-            onExiting={this.onExiting}
-            onExited={this.onExited}
-            key={item}
-          >
-            <img className="img-fluid carousel-photo" src={item} alt={item.altText} />
-            {/* <CarouselCaption captionText={item} captionHeader={item} /> */}
-          </CarouselItem>
-      );
-    });
+    const slides = photos.map(photo => <CarouselItem
+      onExiting={this.onExiting} onExited={this.onExited} key={photo}>
+            <img className="img-fluid carousel-photo" src={photo} alt={photo.altText} /></CarouselItem>);
 
     return (
-      <div className="ZomatoLocationCard col-4 no-gutters">
+      <div className="ZomatoLocationCard col-6 no-gutters">
         <Card body className="text-center">
           <CardHeader><h6>{name}</h6></CardHeader>
           <Carousel
