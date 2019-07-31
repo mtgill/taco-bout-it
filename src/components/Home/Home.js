@@ -120,10 +120,11 @@ class Home extends React.Component {
     const { tacos, locations, zomatoLocs } = this.state;
     return (
       <div className="Home">
-        <div className="col-8">
+        <div className="row">
+        <div className="col-6">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
-        <div className="col-8 zomato-locations">
+        <div className="col-6 zomato-locations">
         <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
@@ -156,6 +157,7 @@ class Home extends React.Component {
             <Button color="primary" onClick={this.saveNewLoc}>Add Location</Button>
           </ModalFooter>
         </Modal>
+        </div>
       </div>
     );
   }
