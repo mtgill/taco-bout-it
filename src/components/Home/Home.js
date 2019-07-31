@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Spinner,
 } from 'reactstrap';
 
 import TacoMap from '../TacoMap/TacoMap';
@@ -120,6 +121,7 @@ class Home extends React.Component {
     const { tacos, locations, zomatoLocs } = this.state;
     return (
       <div className="Home">
+        <div><Spinner color="primary" /></div>
         <div className="col-6">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
