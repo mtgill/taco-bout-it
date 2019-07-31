@@ -1,15 +1,8 @@
-import React, { Suspense } from 'react';
-
-// import Loadable from 'react-loadable';
+import React from 'react';
 
 import './ZomatoLocation.scss';
 
 import ZomatoLocationCard from '../ZomatoLocationCard/ZomatoLocationCard';
-
-// const LoadableComp = Loadable({
-//   loader: () => import(''),
-//   loading: () => <div>Loading...</div>,
-// });
 
 class ZomatoLocation extends React.Component {
   render() {
