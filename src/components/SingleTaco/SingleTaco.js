@@ -161,6 +161,9 @@ class SingleTaco extends React.Component {
       editReview={this.editReview}
       />
     ));
+    const seePhotos = taco.imageUrl !== '' ? (
+      <img className="img-fluid taco-photo" src={taco.imageUrl} alt="taco"></img>
+    ) : null;
     return (
       <div className="SingleTaco">
         <div className="col-10">
@@ -170,6 +173,7 @@ class SingleTaco extends React.Component {
               <h5 className="card-text">Taco Name: {taco.name}</h5>
               <h5 className="card-text">Location: {location}</h5>
               <h5 className="card-text">Ingredients: {taco.ingredients}</h5>
+              <div>{seePhotos}</div>
               <button className="btn btn-success" onClick={this.reviewModalToggle}>Add Review</button>
             </div>
           </div>
