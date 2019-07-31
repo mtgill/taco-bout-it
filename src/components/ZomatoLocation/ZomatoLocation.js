@@ -7,7 +7,6 @@ import ZomatoLocationCard from '../ZomatoLocationCard/ZomatoLocationCard';
 class ZomatoLocation extends React.Component {
   render() {
     const { zomatoLocations, currentLocations, addZomatoLocation } = this.props;
-    console.error('zomatolocations', zomatoLocations);
     const makeZomatoLocations = zomatoLocations.map(location => (
       <ZomatoLocationCard
       key={location.id}
@@ -18,6 +17,7 @@ class ZomatoLocation extends React.Component {
       lat={location.location.latitude}
       lng={location.location.longitude}
       addZomatoLocation={addZomatoLocation}
+      filterPhotos={this.filterPhotos}
       />
     ));
     return (
