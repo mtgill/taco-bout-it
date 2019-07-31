@@ -59,29 +59,10 @@ class Home extends React.Component {
   }
 
   getZomatoLocations = () => {
-    let zLocs = [];
-    zomatoData.getZomatoLocations()
-      .then((res) => {
-        zomatoData.getZomatoLocationsTwo()
-          .then((resTwo) => {
-            zomatoData.getZomatoLocationsThree()
-              .then((resThree) => {
-                zomatoData.getZomatoLocationsFour()
-                  .then((resFour) => {
-                    zomatoData.getZomatoLocationsFive()
-                      .then((resFive) => {
-                        zLocs = [
-                          ...res.data.restaurants,
-                          ...resTwo.data.restaurants,
-                          ...resThree.data.restaurants,
-                          ...resFour.data.restaurants,
-                          ...resFive.data.restaurants,
-                        ];
-                        this.setState({ zomatoLocs: zLocs });
-                      });
-                  });
-              });
-          });
+    Promise.all([zomatoData.getZomatoLocations(), zomatoData.getZomatoLocationsTwo()])
+      .then((zLocs) => {
+        const zLoc = [...zLocs[0], ...zLocs[1]];
+        this.setState({ zomatoLocs: zLoc });
       });
   }
 
@@ -137,13 +118,12 @@ class Home extends React.Component {
 
   render() {
     const { tacos, locations, zomatoLocs } = this.state;
-    console.error('zomato from home', zomatoLocs);
     return (
       <div className="Home">
         <div className="col-8">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
-        <div className="col-5 zomato-locations">
+        <div className="col-8 zomato-locations">
         <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >

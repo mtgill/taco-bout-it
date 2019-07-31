@@ -9,14 +9,15 @@ class ZomatoLocation extends React.Component {
     const { zomatoLocations, currentLocations, addZomatoLocation } = this.props;
     const makeZomatoLocations = zomatoLocations.map(location => (
       <ZomatoLocationCard
-      key={location.restaurant.id}
+      key={location.id}
       location={location}
-      name={location.restaurant.name}
+      name={location.name}
       currentLocations={currentLocations}
-      address={location.restaurant.location.address}
-      lat={location.restaurant.location.latitude}
-      lng={location.restaurant.location.longitude}
+      address={location.location.address}
+      lat={location.location.latitude}
+      lng={location.location.longitude}
       addZomatoLocation={addZomatoLocation}
+      filterPhotos={this.filterPhotos}
       />
     ));
     return (
