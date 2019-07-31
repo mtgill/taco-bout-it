@@ -1,11 +1,10 @@
 
 .TacoMap {
-  display: flex;
+  display: block;
   margin-top: 15px;
   border: 1px solid lightseagreen;
-}
-
-.leaflet-container {
-  height: 700px;
-  width: 100%;
+  .leaflet-container {
+    height: 700px;
+    width: auto;
+  }
 }
