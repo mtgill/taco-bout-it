@@ -16,10 +16,10 @@ import TacoMap from '../TacoMap/TacoMap';
 import locationData from '../../helpers/data/locationData';
 import tacoData from '../../helpers/data/tacoData';
 
-import zomatoData from '../../helpers/data/zomatoData';
-import ZomatoLocation from '../ZomatoLocation/ZomatoLocation';
-
 import './Home.scss';
+import zomatoData from '../../helpers/data/zomatoData';
+
+import ZomatoLocation from '../ZomatoLocation/ZomatoLocation';
 
 const defaultLocation = {
   name: '',
