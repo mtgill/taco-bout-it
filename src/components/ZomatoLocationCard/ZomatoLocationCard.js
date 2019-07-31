@@ -112,6 +112,10 @@ class ZomatoLocationCard extends React.Component {
     const { duplicate, activeIndex, photos } = this.state;
     const { name, address } = this.props;
 
+    const seePhotos = photos.length === 0 ? (
+      <img className="img-fluid carousel-photo" src="https://previews.123rf.com/images/pavelstasevich/pavelstasevich1811/pavelstasevich181101028/112815904-no-image-available-icon-flat-vector-illustration.jpg" alt="placeholder"></img>
+    ) : null;
+
     const slides = photos.map(photo => <CarouselItem
       onExiting={this.onExiting} onExited={this.onExited} key={photo}>
             <img className="img-fluid carousel-photo" alt={photo.altText} src={photo} /></CarouselItem>);
@@ -127,6 +131,7 @@ class ZomatoLocationCard extends React.Component {
         <CarouselIndicators
         items={photos} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
         {slides}
+        {seePhotos}
         <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
         <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
       </Carousel>
