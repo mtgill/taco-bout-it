@@ -167,7 +167,7 @@ class SingleTaco extends React.Component {
     return (
       <div className="SingleTaco">
         <div className="col-10">
-          <div className="card">
+          <div className="card tacoCard">
             <div className="card-body">
               <h3 className="card-title">{taco.name} - {location}</h3>
               <h5 className="card-text">Taco Name: {taco.name}</h5>

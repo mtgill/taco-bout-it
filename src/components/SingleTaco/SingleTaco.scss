@@ -1,5 +1,11 @@
 .SingleTaco {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+    .tacoCard {
+      margin: 15px;
+    }
     .taco-photo {
       height: 200px;
     }
