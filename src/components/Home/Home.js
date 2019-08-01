@@ -36,6 +36,7 @@ class Home extends React.Component {
     locationModal: false,
     newLoc: defaultLocation,
     zomatoLocs: [],
+    load: true,
   }
 
   locationModalToggle = this.locationModalToggle.bind(this);
@@ -118,14 +119,20 @@ class Home extends React.Component {
   }
 
   render() {
-    const { tacos, locations, zomatoLocs } = this.state;
+    const {
+      tacos,
+      locations,
+      zomatoLocs,
+      load,
+    } = this.state;
+    // const isLoaded = load ? (
+    // <Spinner color="primary" />) : null;
     return (
       <div className="Home">
-        <div><Spinner color="primary" /></div>
-        <div className="col-6">
+        <div className="col-9">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
-        <div className="col-6 zomato-locations">
+        <div className="col-3 zomato-locations">
         <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >

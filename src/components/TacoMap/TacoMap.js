@@ -55,7 +55,7 @@ class TacoMap extends React.Component {
     locationTacos: [],
     locationId: '',
     allReviews: [],
-    changeIcon: false,
+    tacoMarkerIcon: false,
   }
 
 
@@ -84,11 +84,11 @@ class TacoMap extends React.Component {
   }
 
   changeMarkerIcon = () => {
-    const { changeIcon } = this.state;
-    if (!changeIcon) {
-      this.setState({ changeIcon: true });
-    } else if (changeIcon) {
-      this.setState({ changeIcon: false });
+    const { tacoMarkerIcon } = this.state;
+    if (!tacoMarkerIcon) {
+      this.setState({ tacoMarkerIcon: true });
+    } else if (tacoMarkerIcon) {
+      this.setState({ tacoMarkerIcon: false });
     }
   }
 
@@ -105,11 +105,11 @@ class TacoMap extends React.Component {
       zoom,
       locationTacos,
       allReviews,
-      changeIcon,
+      tacoMarkerIcon,
     } = this.state;
     const center = [this.state.lat, this.state.lng];
     let icon = '';
-    const changeMarker = changeIcon ? (
+    const changeMarker = tacoMarkerIcon ? (
       icon = tacoIcon) : icon = defaultIcon;
     const makeMarkers = this.props.locations.map(location => (
       <Marker
@@ -145,7 +145,8 @@ class TacoMap extends React.Component {
           <button className="btn btn-info" onClick={this.props.modalToggle} size="sm">Add Custom Location</button>
         </Control>
         <Control position="topright">
-          <button className="btn btn-success" onClick={this.changeMarkerIcon} size="sm">Change Icons</button>
+          <button className={tacoMarkerIcon ? 'btn btn-success' : 'btn btn-danger'} onClick={this.changeMarkerIcon} size="sm">
+          {tacoMarkerIcon ? 'Back To Normal...' : 'Get Taco Crazy!'}</button>
         </Control>
 
       </Map>
