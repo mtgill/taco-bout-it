@@ -26,13 +26,19 @@ const tacoIcon = L.icon({
 
   iconSize: [38, 95],
   shadowSize: [50, 64],
-  iconAnchor: [2, 50],
+  iconAnchor: [2, 40],
   shadowAnchor: [10, 45],
   popupAnchor: [20, -30],
 });
 
 const defaultIcon = L.icon({
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
+
+  iconSize: [25, 50],
+  shadowSize: [50, 64],
+  iconAnchor: [2, 40],
+  shadowAnchor: [10, 45],
+  popupAnchor: [20, -30],
 });
 
 class TacoMap extends React.Component {
