@@ -31,6 +31,10 @@ const tacoIcon = L.icon({
   popupAnchor: [20, -30],
 });
 
+const defaultIcon = L.icon({
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+});
+
 class TacoMap extends React.Component {
   static propTypes = {
     tacos: PropTypes.array.isRequired,
@@ -45,6 +49,7 @@ class TacoMap extends React.Component {
     locationTacos: [],
     locationId: '',
     allReviews: [],
+    changeIcon: false,
   }
 
 
@@ -72,6 +77,15 @@ class TacoMap extends React.Component {
     this.setState({ locationId });
   }
 
+  changeMarkerIcon = () => {
+    const { changeIcon } = this.state;
+    if (!changeIcon) {
+      this.setState({ changeIcon: true });
+    } else if (changeIcon) {
+      this.setState({ changeIcon: false });
+    }
+  }
+
   saveNewTaco = (locationId) => {
     tacoData.getTacos()
       .then((tacos) => {
@@ -81,12 +95,20 @@ class TacoMap extends React.Component {
   }
 
   render() {
-    const { zoom, locationTacos, allReviews } = this.state;
+    const {
+      zoom,
+      locationTacos,
+      allReviews,
+      changeIcon,
+    } = this.state;
     const center = [this.state.lat, this.state.lng];
+    let icon = '';
+    const changeMarker = changeIcon ? (
+      icon = tacoIcon) : icon = defaultIcon;
     const makeMarkers = this.props.locations.map(location => (
       <Marker
       key={location.name}
-      icon={tacoIcon}
+      icon={changeMarker}
       id={location.id}
       position={[location.lat, location.lng]}
       onClick={this.selectLocation}>
@@ -115,6 +137,9 @@ class TacoMap extends React.Component {
 
         <Control position="topright">
           <button className="btn btn-info" onClick={this.props.modalToggle} size="sm">Add Custom Location</button>
+        </Control>
+        <Control position="topright">
+          <button className="btn btn-success" onClick={this.changeMarkerIcon} size="sm">Change Icons</button>
         </Control>
 
       </Map>
