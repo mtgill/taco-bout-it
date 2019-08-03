@@ -36,7 +36,7 @@ class Home extends React.Component {
     locationModal: false,
     newLoc: defaultLocation,
     zomatoLocs: [],
-    load: true,
+    load: false,
   }
 
   locationModalToggle = this.locationModalToggle.bind(this);
@@ -64,7 +64,7 @@ class Home extends React.Component {
     Promise.all([zomatoData.getZomatoLocations(), zomatoData.getZomatoLocationsTwo()])
       .then((zLocs) => {
         const zLoc = [...zLocs[0], ...zLocs[1]];
-        this.setState({ zomatoLocs: zLoc });
+        this.setState({ zomatoLocs: zLoc, load: true });
       });
   }
 
@@ -127,13 +127,18 @@ class Home extends React.Component {
     } = this.state;
     // const isLoaded = load ? (
     // <Spinner color="primary" />) : null;
+    const loadZLocs = load ? (
+      <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />) : (
+      <Spinner type="grow" className="zLocSpinner m-5" color="info" />);
+
     return (
       <div className="Home">
-        <div className="col-9">
+        {/* <div className="home-header"><h1>Let's Taco 'Bout It</h1></div> */}
+        <div className="col-9 map">
         <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
         </div>
-        <div className="col-3 zomato-locations">
-        <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />
+        <div className="col-3 zomato-locations zLocs">
+          {loadZLocs}
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Location</ModalHeader>
