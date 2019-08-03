@@ -87,6 +87,11 @@ class TacoPopup extends React.Component {
       });
   }
 
+  locationToDelete = () => {
+    const { deleteLocation, locationId } = this.props;
+    deleteLocation(locationId);
+  }
+
 
   render() {
     const {
@@ -112,6 +117,7 @@ class TacoPopup extends React.Component {
             </tbody>
           </Table>
         <button className="btn btn-info btn-sm" onClick={this.addTaco}>Add New Taco</button>
+        <button className="btn btn-danger btn-sm" onClick={this.locationToDelete}>Delete Location</button>
       </Popup>
       <Modal isOpen={this.state.newTacoModal} toggle={this.newTacoModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Taco</ModalHeader>

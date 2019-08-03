@@ -18,4 +18,6 @@ const getLocations = () => new Promise((resolve, reject) => {
 
 const addLocation = newLoc => axios.post(`${fbUrl}/locations.json`, newLoc);
 
-export default { getLocations, addLocation };
+const deleteLocation = locationId => axios.delete(`${fbUrl}/locations/${locationId}.json`);
+
+export default { getLocations, addLocation, deleteLocation };

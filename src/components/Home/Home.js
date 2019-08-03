@@ -39,6 +39,7 @@ class Home extends React.Component {
     load: false,
   }
 
+  // Start of location modal toggle
   locationModalToggle = this.locationModalToggle.bind(this);
 
   locationModalToggle(e) {
@@ -47,19 +48,23 @@ class Home extends React.Component {
       locationModal: !prevState.locationModal,
     }));
   }
+  // end of location modal toggle
 
+  // gets all tacos
   getTacos = () => {
     tacoData.getTacos()
       .then(tacos => this.setState({ tacos }))
       .catch(err => console.error('could not get locations', err));
   }
 
+  // gets all locations
   getLocations = () => {
     locationData.getLocations()
       .then(locations => this.setState({ locations }))
       .catch(err => console.error('could not get locations', err));
   }
 
+  // gets locations from Zomato API
   getZomatoLocations = () => {
     Promise.all([zomatoData.getZomatoLocations(), zomatoData.getZomatoLocationsTwo()])
       .then((zLocs) => {
@@ -74,16 +79,11 @@ class Home extends React.Component {
     this.getZomatoLocations();
   }
 
+  // handles updates to new location information in the new location modal
   newLocationStateUpdates = (name, e) => {
     const tempLoc = { ...this.state.newLoc };
     tempLoc[name] = e.target.value;
     this.setState({ newLoc: tempLoc });
-  }
-
-  getLocations = () => {
-    locationData.getLocations()
-      .then(locations => this.setState({ locations }))
-      .catch(err => console.error('could not get locations', err));
   }
 
   newLocationName = e => this.newLocationStateUpdates('name', e);
@@ -95,6 +95,7 @@ class Home extends React.Component {
   newLocationLng = e => this.newLocationStateUpdates('lng', e);
 
 
+  // saves a new location to fb and re-renders map
   saveNewLoc = () => {
     const { newLoc } = this.state;
     locationData.addLocation(newLoc)
@@ -104,6 +105,7 @@ class Home extends React.Component {
       });
   }
 
+  // adds zomato location to fb and re-renders map
   addZomatoLocation = (name, address, lat, lng) => {
     const newLoc = {
       name,
@@ -125,17 +127,24 @@ class Home extends React.Component {
       zomatoLocs,
       load,
     } = this.state;
-    // const isLoaded = load ? (
-    // <Spinner color="primary" />) : null;
+
     const loadZLocs = load ? (
-      <ZomatoLocation key={'zomato'} zomatoLocations={zomatoLocs} currentLocations={locations} addZomatoLocation={this.addZomatoLocation} />) : (
+      <ZomatoLocation
+      key={'zomato'}
+      zomatoLocations={zomatoLocs}
+      currentLocations={locations}
+      addZomatoLocation={this.addZomatoLocation} />) : (
       <Spinner type="grow" className="zLocSpinner m-5" color="info" />);
 
     return (
       <div className="Home">
-        {/* <div className="home-header"><h1>Let's Taco 'Bout It</h1></div> */}
         <div className="col-9 map">
-        <TacoMap tacos={tacos} locations={locations} modalToggle={this.locationModalToggle} />
+        <TacoMap
+        tacos={tacos}
+        locations={locations}
+        modalToggle={this.locationModalToggle}
+        getLocations={this.getLocations}
+        getZomatoLocations={this.getZomatoLocations}/>
         </div>
         <div className="col-3 zomato-locations zLocs">
           {loadZLocs}

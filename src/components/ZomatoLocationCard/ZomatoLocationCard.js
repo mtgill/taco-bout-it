@@ -24,6 +24,7 @@ class ZomatoLocationCard extends React.Component {
     photos: [],
   }
 
+  // Start ZLoc Carousel
   next = this.next.bind(this);
 
   previous = this.previous.bind(this);
@@ -60,13 +61,14 @@ class ZomatoLocationCard extends React.Component {
     if (this.animating) return;
     this.setState({ activeIndex: newIndex });
   }
+  // End ZLoc Carousel
 
+  // Pulling ZLoc photos into an array for each location
   getPhotos = () => {
     const { location } = this.props;
     const tempPhotos = [];
     const photoUrls = [];
     if (location.photos) {
-      // console.error('location photos', location.photos);
       tempPhotos.push(location.photos);
     }
     tempPhotos.forEach((photoArray) => {
@@ -77,6 +79,7 @@ class ZomatoLocationCard extends React.Component {
     this.setState({ photos: photoUrls });
   }
 
+  // Adds ZLoc location to map and sets duplicate to true
   addToMap = () => {
     const {
       name,
@@ -89,6 +92,7 @@ class ZomatoLocationCard extends React.Component {
     this.setState({ duplicate: true });
   }
 
+  // checks for locations that are already on the map
   duplicateCheck = () => {
     const { currentLocations, address } = this.props;
     currentLocations.forEach((location) => {
@@ -98,14 +102,15 @@ class ZomatoLocationCard extends React.Component {
     });
   }
 
-  photoCheck = () => {
-    const { filterPhotos, location } = this.props;
-    filterPhotos(location);
-  }
-
   componentDidMount() {
     this.duplicateCheck();
     this.getPhotos();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentLocations !== this.props.currentLocations) {
+      // this.setState({ duplicate: false });
+    }
   }
 
   render() {
@@ -136,7 +141,8 @@ class ZomatoLocationCard extends React.Component {
         <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
       </Carousel>
           <CardText>{address}</CardText>
-          <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'} onClick={this.addToMap}>{duplicate ? 'Added To Your Locations' : 'Add This Location!'}</Button>
+          <Button className={duplicate ? 'btn btn-outline-success disabled' : 'btn btn-success'}
+          onClick={duplicate ? null : this.addToMap}>{duplicate ? 'Added To Your Locations' : 'Add This Location!'}</Button>
         </Card>
       </div>
     );
