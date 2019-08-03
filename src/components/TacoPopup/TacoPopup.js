@@ -116,8 +116,10 @@ class TacoPopup extends React.Component {
             {tacoRow}
             </tbody>
           </Table>
-        <button className="btn btn-info btn-sm" onClick={this.addTaco}>Add New Taco</button>
-        <button className="btn btn-danger btn-sm" onClick={this.locationToDelete}>Delete Location</button>
+          <div className="clearfix" style={{ padding: '.1rem' }}>
+          <Button className="btn btn-info float-left" size="sm" onClick={this.addTaco}>Add Taco</Button>
+          <Button className="btn btn-danger float-right" size="sm" onClick={this.locationToDelete}>Delete Location</Button>
+          </div>
       </Popup>
       <Modal isOpen={this.state.newTacoModal} toggle={this.newTacoModalToggle} >
           <ModalHeader toggle={this.toggle}>Add New Taco</ModalHeader>
