@@ -19,7 +19,9 @@ import TacoPopup from '../TacoPopup/TacoPopup';
 import './TacoMap.scss';
 import tacoData from '../../helpers/data/tacoData';
 import reviewData from '../../helpers/data/reviewData';
+import locationData from '../../helpers/data/locationData';
 
+// custom taco marker icon
 const tacoIcon = L.icon({
   iconUrl: 'https://image.flaticon.com/icons/svg/135/135590.svg',
   shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
@@ -31,6 +33,7 @@ const tacoIcon = L.icon({
   popupAnchor: [20, -30],
 });
 
+// default leaflet marker icon
 const defaultIcon = L.icon({
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
 
@@ -56,6 +59,7 @@ class TacoMap extends React.Component {
     locationId: '',
     allReviews: [],
     tacoMarkerIcon: false,
+    deleted: false,
   }
 
 
@@ -69,20 +73,25 @@ class TacoMap extends React.Component {
       });
   }
 
+  // executes when a user clicks on a location marker
+  // finds tacos for each location
   selectLocation = (e) => {
     const locationId = e.target.options.id;
     const matchTacos = this.props.tacos.filter(x => x.locationId === locationId);
     this.setState({ locationTacos: matchTacos });
   }
 
+  // returns a single taco object using the id
   getSingleTaco = (tacoId) => {
     tacoData.getSingleTaco(tacoId);
   }
 
+  // adds a new taco to a location
   addTaco = (locationId) => {
     this.setState({ locationId });
   }
 
+  // toggles back and forth between default marker icon and custom icon
   changeMarkerIcon = () => {
     const { tacoMarkerIcon } = this.state;
     if (!tacoMarkerIcon) {
@@ -92,12 +101,25 @@ class TacoMap extends React.Component {
     }
   }
 
+  // saves new taco to fb
   saveNewTaco = (locationId) => {
     tacoData.getTacos()
       .then((tacos) => {
         const matchTacos = tacos.filter(x => x.locationId === locationId);
         this.setState({ locationTacos: matchTacos });
       });
+  }
+
+  // deletes location based on ID
+  deleteLocation = (locationId) => {
+    const { getLocations, getZomatoLocations } = this.props;
+    locationData.deleteLocation(locationId)
+      .then(() => {
+        getLocations();
+        getZomatoLocations();
+        this.setState({ deleted: true });
+      })
+      .catch(err => console.error('unable to delete', err));
   }
 
   render() {
@@ -129,6 +151,7 @@ class TacoMap extends React.Component {
         allReviews={allReviews}
         saveNewTaco={this.saveNewTaco}
         address={location.address}
+        deleteLocation={this.deleteLocation}
         />
       </Marker>
     ));

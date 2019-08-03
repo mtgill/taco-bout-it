@@ -1,14 +1,9 @@
 import React from 'react';
 
 import {
-  Alert,
   Card,
-  CardImg,
   CardText,
-  CardBody,
   CardHeader,
-  CardTitle,
-  CardSubtitle,
   Button,
 } from 'reactstrap';
 
@@ -31,6 +26,7 @@ class Review extends React.Component {
     editReview: PropTypes.func.isRequired,
   }
 
+  // selects review to be deleted
   reviewToDelete = (e) => {
     e.preventDefault();
     const reviewId = e.target.id;
@@ -38,6 +34,7 @@ class Review extends React.Component {
     deleteReview(reviewId);
   }
 
+  // selects review to be edited
   selectReview = (e) => {
     const { editReview } = this.props;
     const reviewId = e.target.id;
