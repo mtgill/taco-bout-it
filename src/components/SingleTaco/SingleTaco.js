@@ -12,6 +12,9 @@ import {
   ModalFooter,
 } from 'reactstrap';
 
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
@@ -93,6 +96,7 @@ class SingleTaco extends React.Component {
     tempReview.date = this.getDate();
     tempReview.tacoId = tacoId;
     tempReview.rating = parseFloat(tempReview.rating, 2);
+    tempReview.uid = firebase.auth().currentUser.uid;
     this.setState({ newReview: tempReview });
   }
 
@@ -117,7 +121,6 @@ class SingleTaco extends React.Component {
     reviewData.getSingleReview(reviewId)
       .then((reviewPromise) => {
         const review = reviewPromise.data;
-        console.error(reviewId);
         this.setState({
           ratingInput: review.rating,
           commentInput: review.comment,
@@ -159,6 +162,7 @@ class SingleTaco extends React.Component {
       rating={review.rating}
       deleteReview={this.deleteReview}
       editReview={this.editReview}
+      uid={review.uid}
       />
     ));
     const seePhotos = taco.imageUrl !== '' ? (
@@ -182,7 +186,7 @@ class SingleTaco extends React.Component {
           </div>
           <div className="reviewModal">
           <Modal isOpen={this.state.reviewModal} toggle={this.reviewModalToggle} >
-          <ModalHeader toggle={this.toggle}>Add New Review</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Review</ModalHeader>
           <ModalBody>
             <Form>
             <FormGroup>
