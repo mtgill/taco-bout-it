@@ -109,7 +109,8 @@ class ZomatoLocationCard extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.currentLocations !== this.props.currentLocations) {
-      // this.setState({ duplicate: false });
+      this.setState({ duplicate: false });
+      this.duplicateCheck();
     }
   }
 
