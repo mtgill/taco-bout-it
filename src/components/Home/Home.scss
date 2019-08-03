@@ -5,7 +5,16 @@
   padding-left: 0px;
   padding-right: 0px;
   justify-content: center;
+  flex-wrap: nowrap;
   .home-header {
     margin-top: 15px;
+  }
+  .map {
+  }
+  .zLocs {
+    .zLocSpinner {
+      width: 8rem; 
+      height: 8rem
+    }
   }
 }

@@ -121,7 +121,7 @@ class ZomatoLocationCard extends React.Component {
             <img className="img-fluid carousel-photo" alt={photo.altText} src={photo} /></CarouselItem>);
 
     return (
-      <div className="ZomatoLocationCard col-6 no-gutters">
+      <div className="ZomatoLocationCard col-12 no-gutters">
         <Card body className="text-center">
           <CardHeader><h6>{name}</h6></CardHeader>
           <Carousel
