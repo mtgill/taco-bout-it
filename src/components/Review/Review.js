@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {
+  Alert,
   Card,
   CardImg,
   CardText,
@@ -10,6 +11,10 @@ import {
   CardSubtitle,
   Button,
 } from 'reactstrap';
+
+
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 import './Review.scss';
 
@@ -45,15 +50,20 @@ class Review extends React.Component {
       comment,
       rating,
       id,
+      uid,
     } = this.props;
+    const user = firebase.auth().currentUser.uid;
     return (
       <div className="Review">
         <Card body className="text-center">
           <CardHeader><h4>Date: {date}</h4></CardHeader>
             <CardText>Comment: {comment}</CardText>
             <CardText>Rating: {rating}</CardText>
-          <Button id={id} className="btn btn-danger reviewButton" onClick={this.reviewToDelete}>Delete</Button>
-          <Button id={id} className="btn btn-info reviewButton" onClick={this.selectReview}>Edit Review</Button>
+          <Button id={id}
+          className={uid === user ? 'btn btn-danger deleteButton' : 'btn btn-danger deleteButton disabled'}
+          onClick={uid === user ? this.reviewToDelete : null }>Delete</Button>
+          <Button className={uid === user ? 'btn btn-info reviewButton' : 'btn btn-info reviewButton disabled'} id={id}
+          onClick={uid === user ? this.selectReview : null }>Edit Review</Button>
         </Card>
       </div>
     );
