@@ -10,6 +10,7 @@ import {
   ModalBody,
   ModalFooter,
   Spinner,
+  UncontrolledAlert,
 } from 'reactstrap';
 
 import TacoMap from '../TacoMap/TacoMap';
@@ -139,6 +140,9 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <div className="col-9 map">
+    <UncontrolledAlert color="info">
+      I am an alert and I can be dismissed!
+    </UncontrolledAlert>
         <TacoMap
         tacos={tacos}
         locations={locations}
@@ -147,6 +151,9 @@ class Home extends React.Component {
         getZomatoLocations={this.getZomatoLocations}/>
         </div>
         <div className="col-3 zomato-locations zLocs">
+        <UncontrolledAlert color="info">
+      I am an alert and I can be dismissed!
+    </UncontrolledAlert>
           {loadZLocs}
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
