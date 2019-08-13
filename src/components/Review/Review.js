@@ -51,7 +51,7 @@ class Review extends React.Component {
     } = this.props;
     const user = firebase.auth().currentUser.uid;
     return (
-      <div className="Review">
+      <div className="Review col-4">
         <Card body className="text-center">
           <CardHeader><h4>Date: {date}</h4></CardHeader>
             <CardText>Comment: {comment}</CardText>

@@ -181,7 +181,8 @@ class SingleTaco extends React.Component {
               <button className="btn btn-success" onClick={this.reviewModalToggle}>Add Review</button>
             </div>
           </div>
-          <div>
+          <div><h2>Reviews</h2></div>
+          <div className="row">
             {makeReviews}
           </div>
           <div className="reviewModal">
