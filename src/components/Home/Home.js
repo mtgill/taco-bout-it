@@ -139,7 +139,7 @@ class Home extends React.Component {
 
     return (
       <div className="Home">
-        <div className="col-9 map">
+        <div className="col-sm-7 col-md-9 col-lg-9 map">
         <TacoMap
         tacos={tacos}
         locations={locations}
@@ -147,7 +147,8 @@ class Home extends React.Component {
         getLocations={this.getLocations}
         getZomatoLocations={this.getZomatoLocations}/>
         </div>
-        <div className="col-3 zomato-locations zLocs">
+        <div className="w-100 d-none d-md-block"></div>
+        <div className="col-sm-5 col-md-3 col-lg-3 zomato-locations zLocs">
           {loadZLocs}
         </div>
         <Modal isOpen={this.state.locationModal} toggle={this.locationModalToggle} >
